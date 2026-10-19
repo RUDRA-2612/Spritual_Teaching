@@ -1,5 +1,6 @@
 import { RELIGIONS_DATA } from '../data.js';
 import { appState } from '../state.js';
+import { renderReligionSymbol } from '../utils/symbolHelper.js';
 
 export function renderStudentHub(religionId, activeTab = 'lectures') {
   const religion = RELIGIONS_DATA.find(r => r.id === religionId);
@@ -12,7 +13,7 @@ export function renderStudentHub(religionId, activeTab = 'lectures') {
 
   return `
     <div class="main-content hub-view">
-      <!-- Back Bar & Top Right Ambient Chant Player -->
+      <!-- Back Bar & Top Right Authentic Audio Chant Player -->
       <div class="hub-header-bar">
         <button class="back-btn" id="btn-back-to-realms">
           <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
@@ -20,8 +21,8 @@ export function renderStudentHub(religionId, activeTab = 'lectures') {
         </button>
 
         <div class="chant-player-container">
-          <!-- Continuous Sacred Chant Looper Button -->
-          <button class="chant-player-btn ${isChantPlaying ? 'playing' : ''}" id="btn-ambient-chant-toggle" data-religion-id="${religion.id}" title="Click to loop sacred chant">
+          <!-- Real Audio Chant Player Button (Top-Right) -->
+          <button class="chant-player-btn ${isChantPlaying ? 'playing' : ''}" id="btn-ambient-chant-toggle" data-religion-id="${religion.id}" title="${isChantPlaying ? 'Click to Stop Audio' : 'Click to Play Audio'}">
             ${isChantPlaying ? `
               <div class="equalizer-anim">
                 <div class="eq-bar"></div>
@@ -29,10 +30,18 @@ export function renderStudentHub(religionId, activeTab = 'lectures') {
                 <div class="eq-bar"></div>
                 <div class="eq-bar"></div>
               </div>
-              <span>🔊 Playing: ${chant.name} (Looping)</span>
+              <div class="chant-btn-text">
+                <span class="chant-btn-title">🔊 Playing: ${chant.name}</span>
+                <span class="chant-btn-sub">Click to Stop Audio</span>
+              </div>
             ` : `
-              <i data-lucide="volume-2" style="width: 17px; height: 17px; color: ${religion.color};"></i>
-              <span>Play ${chant.name} (Continuous Audio)</span>
+              <div class="chant-play-icon" style="background: ${religion.color}">
+                <i data-lucide="volume-2" style="width: 16px; height: 16px; color: #fff;"></i>
+              </div>
+              <div class="chant-btn-text">
+                <span class="chant-btn-title">▶️ Play Audio Chant</span>
+                <span class="chant-track-sub">${chant.name}</span>
+              </div>
             `}
           </button>
 
@@ -46,7 +55,7 @@ export function renderStudentHub(religionId, activeTab = 'lectures') {
       <div class="hub-hero" style="background: ${religion.bgGradient}; --hub-art-bg: url('${religion.artImage}')">
         <div class="hub-hero-info">
           <h2>
-            <span>${religion.symbol}</span>
+            <span class="hub-hero-symbol">${renderReligionSymbol(religion, 38)}</span>
             <span>${religion.name}</span>
           </h2>
           <p>${religion.summary}</p>

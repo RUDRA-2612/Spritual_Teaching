@@ -9,13 +9,13 @@ class AppState {
     this.activeChild = 'aarav'; // 'aarav' | 'ananya'
     this.soundEnabled = true;
 
-    // Ambient Chant Looper State
+    // Authentic Sacred Audio Player State
+    this.currentAudio = null;
     this.ambientChantPlaying = false;
-    this.ambientChantNodes = [];
-    this.ambientChantTimer = null;
+    this.currentChantReligionId = null;
 
-    // Load progress from localStorage
-    const savedProgress = localStorage.getItem('spiritual_academy_progress');
+    // Load progress from localStorage (v2 to ensure fresh realistic progress)
+    const savedProgress = localStorage.getItem('spiritual_academy_progress_v2');
     if (savedProgress) {
       try {
         this.progress = JSON.parse(savedProgress);
@@ -32,40 +32,29 @@ class AppState {
 
   getDefaultProgress() {
     return {
-      stars: 420,
-      streak: 5,
+      stars: 380,
+      streak: 4,
       completedLectures: {
-        'b1': true,
-        'b2': true,
-        'b3': true,
         'h1': true,
-        'h2': true,
-        'h3': true,
-        's1': true,
-        's2': true,
-        'c1': true,
-        'c2': true,
-        'c3': true,
+        'h2': true, // Hinduism: 2 / 3 (67%)
+        'b1': true, // Buddhism: 1 / 3 (33%)
+        's1': true, // Sikhism: 1 / 3 (33%)
+        // Christianity: 0 / 3 (0% - Ready to Begin)
         'i1': true,
-        'i2': true,
-        'i3': true,
-        'j1': true,
-        'j2': true,
-        'jd1': true,
-        'jd2': true,
-        'jd3': true
+        'i2': true, // Islam: 2 / 3 (67%)
+        'j1': true, // Jainism: 1 / 3 (33%)
+        // Judaism: 0 / 3 (0% - Ready to Begin)
       },
       examScores: {
-        'buddhism': { score: 100, grade: 'A+', date: 'Yesterday' },
-        'hinduism': { score: 94, grade: 'A+', date: '3 days ago' },
-        'islam': { score: 94, grade: 'A+', date: '4 days ago' },
-        'christianity': { score: 92, grade: 'A', date: '5 days ago' }
+        'hinduism': { score: 95, grade: 'A+', date: 'Yesterday' },
+        'islam': { score: 92, grade: 'A', date: '3 days ago' },
+        'buddhism': { score: 88, grade: 'B+', date: '4 days ago' }
       }
     };
   }
 
   save() {
-    localStorage.setItem('spiritual_academy_progress', JSON.stringify(this.progress));
+    localStorage.setItem('spiritual_academy_progress_v2', JSON.stringify(this.progress));
     this.notify();
   }
 
@@ -86,7 +75,8 @@ class AppState {
   selectReligion(religionId) {
     this.selectedReligionId = religionId;
     this.activeHubTab = 'lectures';
-    this.stopAmbientChant();
+    // When entering the realm, trigger the authentic chant!
+    this.startAmbientChant(religionId);
     this.notify();
   }
 
@@ -223,188 +213,65 @@ class AppState {
   }
 
   /* =================================================================
-     CONTINUOUS SACRED AMBIENT CHANT LOOPER ENGINE
+     AUTHENTIC SACRED AUDIO CHANT PLAYER (REAL VOCAL/MANTRA RECORDINGS)
      ================================================================= */
   toggleAmbientChant(religionId) {
-    if (this.ambientChantPlaying) {
+    if (this.ambientChantPlaying && this.currentChantReligionId === religionId) {
       this.stopAmbientChant();
+      this.notify();
     } else {
       this.startAmbientChant(religionId);
     }
-    this.notify();
   }
 
   startAmbientChant(religionId) {
     this.stopAmbientChant();
-    this.initAudio();
-    this.ambientChantPlaying = true;
-
     const religion = RELIGIONS_DATA.find(r => r.id === religionId);
-    if (!religion) return;
+    if (!religion || !religion.ambientChant?.audioSrc) return;
 
-    const chantType = religion.ambientChant?.type || 'hinduGayatri';
+    try {
+      const audio = new Audio(religion.ambientChant.audioSrc);
+      audio.loop = true;
+      audio.volume = 0.85;
+      this.currentAudio = audio;
+      this.currentChantReligionId = religionId;
+      this.ambientChantPlaying = true;
 
-    // Play continuously every cycle
-    const loopIntervalMs = 7000;
-    this.playAmbientCycle(chantType);
-    this.ambientChantTimer = setInterval(() => {
-      if (this.ambientChantPlaying) {
-        this.playAmbientCycle(chantType);
+      audio.addEventListener('error', (e) => {
+        console.warn('Audio playback error', e);
+        this.ambientChantPlaying = false;
+        this.notify();
+      });
+
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          this.ambientChantPlaying = true;
+          this.notify();
+        }).catch(err => {
+          console.warn('Audio play notice (user gesture may be needed):', err);
+          // If browser blocked unprompted autoplay, state remains ready
+          this.ambientChantPlaying = false;
+          this.notify();
+        });
       }
-    }, loopIntervalMs);
+    } catch (err) {
+      console.warn('Error starting audio chant:', err);
+      this.ambientChantPlaying = false;
+      this.notify();
+    }
   }
 
   stopAmbientChant() {
+    if (this.currentAudio) {
+      try {
+        this.currentAudio.pause();
+        this.currentAudio.currentTime = 0;
+      } catch (e) {}
+      this.currentAudio = null;
+    }
     this.ambientChantPlaying = false;
-    if (this.ambientChantTimer) {
-      clearInterval(this.ambientChantTimer);
-      this.ambientChantTimer = null;
-    }
-    if (this.ambientChantNodes && this.ambientChantNodes.length > 0) {
-      this.ambientChantNodes.forEach(node => {
-        try { node.stop(); } catch (e) {}
-      });
-      this.ambientChantNodes = [];
-    }
-  }
-
-  playAmbientCycle(type) {
-    if (!this.audioCtx) return;
-    const ctx = this.audioCtx;
-    const now = ctx.currentTime;
-
-    if (type === 'gayatriMantra') {
-      // 🕉️ Gayatri Mantra / Sacred Om & Tanpura Drone (136.1 Hz Om vibration + fifth harmonics)
-      const omFreqs = [136.1, 204.15, 272.2, 408.3];
-      omFreqs.forEach((freq, idx) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = idx === 0 ? 'sine' : 'triangle';
-        osc.frequency.setValueAtTime(freq, now);
-
-        // Gentle swell and dissolve
-        gain.gain.setValueAtTime(0.001, now);
-        gain.gain.linearRampToValueAtTime(0.12 / (idx + 1), now + 2.0);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 6.8);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 7.0);
-        this.ambientChantNodes.push(osc);
-      });
-    } else if (type === 'buddhistChant') {
-      // ☸️ Tibetan Singing Bowl Resonance (432 Hz + 864 Hz calm bells)
-      const bowlFreqs = [216, 432, 648, 864];
-      bowlFreqs.forEach((f, idx) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, now);
-
-        gain.gain.setValueAtTime(0.15 / (idx + 1), now);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 6.8);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 7.0);
-        this.ambientChantNodes.push(osc);
-      });
-    } else if (type === 'ikOnkarChant') {
-      // ☬ Ik Onkar Dilruba Harmony (Reverent drone + uplifting fifths)
-      const notes = [146.83, 220.00, 293.66, 440.00]; // D3, A3, D4, A4
-      notes.forEach((f, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(f, now + i * 0.4);
-
-        gain.gain.setValueAtTime(0.001, now + i * 0.4);
-        gain.gain.linearRampToValueAtTime(0.09, now + i * 0.4 + 1.2);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 6.8);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now + i * 0.4);
-        osc.stop(now + 7.0);
-        this.ambientChantNodes.push(osc);
-      });
-    } else if (type === 'christianHymn') {
-      // ✝️ Gregorian Chorus & Angelic Harp Arpeggio
-      const notes = [261.63, 329.63, 392.00, 523.25, 659.25]; // C4, E4, G4, C5, E5
-      notes.forEach((f, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, now + i * 0.5);
-
-        gain.gain.setValueAtTime(0.001, now + i * 0.5);
-        gain.gain.linearRampToValueAtTime(0.08, now + i * 0.5 + 0.8);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 6.8);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now + i * 0.5);
-        osc.stop(now + 7.0);
-        this.ambientChantNodes.push(osc);
-      });
-    } else if (type === 'islamicChant') {
-      // ☪️ Subhanallah Ney Flute Scale (Modal Eastern Pentatonic)
-      const notes = [293.66, 311.13, 369.99, 440.00, 493.88]; // D, Eb, F#, A, B (Bayati scale feel)
-      notes.forEach((f, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, now + i * 0.7);
-
-        gain.gain.setValueAtTime(0.001, now + i * 0.7);
-        gain.gain.linearRampToValueAtTime(0.07, now + i * 0.7 + 0.4);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.7 + 2.5);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now + i * 0.7);
-        osc.stop(now + i * 0.7 + 2.6);
-        this.ambientChantNodes.push(osc);
-      });
-    } else if (type === 'navkarChant') {
-      // 🪷 Navkar Mantra Peace Bells & Pure Harmonic Resonator
-      const notes = [220.00, 329.63, 440.00, 554.37]; // A, E, A, C#
-      notes.forEach((f, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(f, now + i * 0.6);
-
-        gain.gain.setValueAtTime(0.08, now + i * 0.6);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 6.8);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now + i * 0.6);
-        osc.stop(now + 7.0);
-        this.ambientChantNodes.push(osc);
-      });
-    } else if (type === 'shalomChant') {
-      // ✡️ Shalom Aleichem Peace Harp
-      const notes = [293.66, 369.99, 440.00, 587.33]; // D, F#, A, D
-      notes.forEach((f, i) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(f, now + i * 0.5);
-
-        gain.gain.setValueAtTime(0.09, now + i * 0.5);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 6.8);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now + i * 0.5);
-        osc.stop(now + 7.0);
-        this.ambientChantNodes.push(osc);
-      });
-    }
+    this.currentChantReligionId = null;
   }
 
   getReligionProgress(religionId) {

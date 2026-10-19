@@ -11,10 +11,11 @@ export const RELIGIONS_DATA = [
     summary: 'Teachings of Gautam Buddha focusing on peaceful living, mindfulness, compassion towards all creatures, and inner stillness.',
     virtues: ['Compassion (Karuna)', 'Mindfulness', 'Peace', 'Gentleness'],
     ambientChant: {
-      name: 'Om Mani Padme Hum & Singing Bowl',
-      hindiLabel: 'ॐ मणि पद्मे हूँ एवं तिब्बती ध्वनि',
+      name: 'Om Mani Padme Hum & Tibetan Bowls',
+      hindiLabel: 'ॐ मणि पद्मे हूँ पावन बौद्ध मंत्र एवं तिब्बती ध्वनि',
+      audioSrc: '/assets/audio/buddhism_chant.mp3',
       type: 'buddhistChant',
-      description: 'Continuous soothing Tibetan singing bowl resonance and meditative peace vibration.'
+      description: 'Authentic Buddhist Om Mani Padme Hum chant resonance with peaceful Tibetan singing bowls.'
     },
     lectures: [
       {
@@ -159,10 +160,11 @@ When they tried to capture the swan, the golden feathers instantly turned into o
     summary: 'One of the oldest spiritual traditions emphasizing Dharma (righteousness), Karma (deeds), and Seva (service).',
     virtues: ['Dharma (Righteousness)', 'Karma (Good Deeds)', 'Ahimsa (Non-violence)', 'Seva (Selfless Service)'],
     ambientChant: {
-      name: 'Gayatri Mantra & Sacred Om Drone',
-      hindiLabel: 'गायत्री मंत्र एवं ॐ दिव्य नाद',
+      name: 'Gayatri Mantra Sacred Chanting',
+      hindiLabel: 'पावन गायत्री मंत्र (ॐ भूर्भुवः स्वः) एवं तानपूरा नाद',
+      audioSrc: '/assets/audio/hinduism_chant.mp3',
       type: 'gayatriMantra',
-      description: 'Continuous sacred Gayatri vibration (Om Bhur Bhuva Swaha) and cosmic Tanpura drone.'
+      description: 'Authentic recitation of Gayatri Mantra with cosmic Tanpura drone and Vedic resonance.'
     },
     lectures: [
       {
@@ -303,10 +305,11 @@ Lord Rama gently picked up the squirrel in his palms and caressed its back, crea
     summary: 'Founded by Guru Nanak Dev Ji, teaching absolute equality, honest living (Kirat Karo), and community sharing (Vand Chhako).',
     virtues: ['Equality of All', 'Vand Chhako (Sharing)', 'Kirat Karo (Honest Work)', 'Seva (Selfless Help)'],
     ambientChant: {
-      name: 'Ik Onkar & Dilruba Divine Harmony',
-      hindiLabel: 'ੴ इक ओंकार एवं दिलरुबा स्वर',
+      name: 'Gurbani Kirtan & Mool Mantar',
+      hindiLabel: 'ੴ श्री मूल मंतर एवं पावन गुरबाणी कीर्तन',
+      audioSrc: '/assets/audio/sikhism_chant.mp3',
       type: 'ikOnkarChant',
-      description: 'Continuous peaceful Ik Onkar drone and celestial acoustic string resonance.'
+      description: 'Authentic Gurbani recitation with celestial harmonium and peaceful Dilruba resonance.'
     },
     lectures: [
       {
@@ -457,10 +460,11 @@ Bhai Kanhaiya bowed humbly and replied: "My Guru, when I looked into their thirs
     summary: 'Teachings of Jesus Christ focusing on unconditional love, forgiving others from the heart, and the Golden Rule.',
     virtues: ['Unconditional Love (Agape)', 'Forgiveness', 'The Golden Rule', 'Helping the Needy'],
     ambientChant: {
-      name: 'Cathedral Chorus & Angelic Harp',
-      hindiLabel: 'प्रार्थना स्वर एवं स्वर्गीय वीणा',
+      name: 'Cathedral Choir & Gregorian Chant',
+      hindiLabel: 'पवित्र कैथेड्रल प्रार्थना एवं वीणा स्वर',
+      audioSrc: '/assets/audio/christianity_chant.mp3',
       type: 'christianHymn',
-      description: 'Continuous ethereal choir pad and gentle acoustic harp harmonic glissando.'
+      description: 'Authentic reverent Gregorian Latin chant (Veni Creator Spiritus) with cathedral choir harmony.'
     },
     lectures: [
       {
@@ -601,10 +605,11 @@ Then came a Samaritan—a man from a community that ordinary travelers looked do
     summary: 'Teachings emphasizing peace (Salaam), charity (Zakat), trustworthiness (Amanah), and showing kindness to all creation.',
     virtues: ['Peace (Salaam)', 'Charity (Zakat & Sadqah)', 'Trustworthiness (Amanah)', 'Kindness to Nature'],
     ambientChant: {
-      name: 'Subhanallah Meditation & Ney Flute',
-      hindiLabel: 'सुब्हानअल्लाह ध्यान एवं बांसुरी',
+      name: 'Surah Al-Fatiha Sacred Tilawat',
+      hindiLabel: 'सूरह अल-फातिहा पावन तिलावत एवं शांति स्वर',
+      audioSrc: '/assets/audio/islam_chant.mp3',
       type: 'islamicChant',
-      description: 'Continuous tranquil desert reed flute resonance and peaceful dhikr vibration.'
+      description: 'Authentic melodic recitation of Surah Al-Fatiha with peaceful desert Ney ambiance.'
     },
     lectures: [
       {
@@ -745,10 +750,11 @@ The well had no bucket or rope. Without hesitation, the man climbed back down in
     summary: 'Teachings of Bhagwan Mahavira emphasizing supreme Ahimsa (non-violence to all life forms), Aparigraha (non-greed), and truth.',
     virtues: ['Ahimsa Paramo Dharma', 'Reverence for All Life', 'Aparigraha (Simplicity)', 'Forgiveness (Micchami Dukkadam)'],
     ambientChant: {
-      name: 'Navkar Mantra & Sacred Temple Chimes',
-      hindiLabel: 'णमोकार मंत्र एवं पावन घंटनाद',
+      name: 'Namokar (Navkar) Mahamantra',
+      hindiLabel: 'श्री णमोकार महामंत्र पावन जाप एवं घंटनाद',
+      audioSrc: '/assets/audio/jainism_chant.mp3',
       type: 'navkarChant',
-      description: 'Continuous sacred Navkar vibration and peaceful temple bell overtones.'
+      description: 'Authentic chanting of sacred Navkar Mantra (Namo Arihantanam) with temple bells.'
     },
     lectures: [
       {
@@ -897,10 +903,11 @@ They began arguing loudly. A gentle Jain sage walked past and said softly: "Each
     summary: 'Ancient wisdom tradition emphasizing Tikkun Olam (repairing the world), pursuing justice, and family gratitude on Shabbat.',
     virtues: ['Tikkun Olam (Heal the World)', 'Seeking Wisdom', 'Tzedakah (Justice & Giving)', 'Shabbat Gratitude'],
     ambientChant: {
-      name: 'Shalom Aleichem & Sacred Harp',
-      hindiLabel: 'शालोम अलैखेम एवं दिव्य वीणा',
+      name: 'Shalom Aleichem Choral Peace Hymn',
+      hindiLabel: 'शालोम अलैखेम पावन शांति गान एवं वीणा',
+      audioSrc: '/assets/audio/judaism_chant.mp3',
       type: 'shalomChant',
-      description: 'Continuous soothing Shalom peace chords and acoustic warm harp resonance.'
+      description: 'Authentic warm choral singing of Shalom Aleichem with sacred harp harmonies.'
     },
     lectures: [
       {

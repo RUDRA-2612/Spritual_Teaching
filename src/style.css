@@ -292,38 +292,72 @@ body {
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: 34px;
+  font-size: 33px;
   font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 10px;
+  line-height: 1.25;
+  margin-bottom: 8px;
   letter-spacing: -0.5px;
 }
 
+.hero-hindi-tagline {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #fde68a;
+  letter-spacing: 0.3px;
+  margin-bottom: 14px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
 .hero-subtitle {
-  font-size: 15.5px;
+  font-size: 15px;
   color: #e0e7ff;
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .daily-quote-box {
-  background: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(10px);
-  border-left: 4px solid #f59e0b;
-  padding: 12px 18px;
-  border-radius: 8px;
-  font-style: italic;
-  font-size: 13.5px;
-  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(253, 230, 138, 0.35);
+  border-left: 5px solid #f59e0b;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.daily-quote-box span {
-  display: block;
+.quote-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.quote-icon {
+  font-size: 16px;
+}
+
+.quote-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #fde68a;
+}
+
+.quote-body {
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+.quote-author {
   font-style: normal;
   font-weight: 700;
-  font-size: 11.5px;
-  color: #fde68a;
-  margin-top: 4px;
+  font-size: 12px;
+  color: #fed7aa;
+  margin-top: 6px;
+  text-align: right;
 }
 
 /* Section Header */
@@ -431,13 +465,28 @@ body {
   transition: transform 0.3s ease;
 }
 
+.card-symbol-badge.sikh-badge {
+  background: linear-gradient(135deg, #082f49 0%, #0c4a6e 100%);
+  border: 2px solid #fbbf24;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.45), inset 0 0 10px rgba(251, 191, 36, 0.35);
+}
+
+.khanda-symbol-svg {
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 0 4px #fbbf24);
+}
+
 .religion-card:hover .card-symbol-badge {
   transform: scale(1.15) rotate(6deg);
 }
 
-.card-faith-name {
+.card-title-meta {
   position: relative;
   z-index: 2;
+}
+
+.card-faith-name {
   font-family: var(--font-display);
   font-size: 21px;
   font-weight: 800;
@@ -446,11 +495,9 @@ body {
 }
 
 .card-faith-sub {
-  position: relative;
-  z-index: 2;
   font-size: 12px;
-  color: #f8fafc;
-  font-weight: 600;
+  color: #fde68a;
+  font-weight: 700;
   text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
@@ -472,19 +519,27 @@ body {
 }
 
 .v-tag {
-  background: #f1f5f9;
-  color: #475569;
-  font-size: 11.5px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 6px;
+  background: #f8fafc;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 8px;
   border: 1px solid #e2e8f0;
+  transition: all 0.25s ease;
+}
+
+.religion-card:hover .v-tag {
+  border-color: var(--v-accent, #cbd5e1);
+  color: var(--v-accent, #1e293b);
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .card-description {
-  font-size: 13px;
-  color: #64748b;
-  line-height: 1.5;
+  font-size: 13.5px;
+  color: #475569;
+  line-height: 1.55;
   margin-bottom: 16px;
   flex: 1;
 }
@@ -496,10 +551,25 @@ body {
 .progress-info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.progress-title {
   font-size: 12px;
   font-weight: 700;
   color: #475569;
-  margin-bottom: 6px;
+}
+
+.progress-num-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .progress-track {
@@ -518,9 +588,9 @@ body {
 
 .card-action-btn {
   width: 100%;
-  padding: 10px;
+  padding: 11px;
   border-radius: var(--radius-sm);
-  border: none;
+  border: 1px solid #e2e8f0;
   font-family: var(--font-display);
   font-size: 13.5px;
   font-weight: 700;
@@ -529,21 +599,21 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.25s;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   background: #f8fafc;
   color: #334155;
-  border: 1px solid #e2e8f0;
 }
 
 .religion-card:hover .card-action-btn {
-  background: var(--primary);
+  background: var(--btn-color, var(--primary));
   color: #ffffff;
-  border-color: var(--primary);
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+  border-color: var(--btn-color, var(--primary));
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
 }
 
 /* =================================================================
-   RELIGION LEARNING HUB (SCREEN 2) WITH SACRED CHANT PLAYER
+   RELIGION LEARNING HUB (SCREEN 2) WITH AUTHENTIC AUDIO PLAYER
    ================================================================= */
 .hub-view {
   animation: fadeIn 0.3s ease;
@@ -587,42 +657,93 @@ body {
   transform: translateX(-2px);
 }
 
-/* SACRED AMBIENT CHANT PLAYER (TOP-RIGHT) */
+/* AUTHENTIC AUDIO CHANT PLAYER BUTTON (TOP-RIGHT) */
 .chant-player-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .chant-player-btn {
   background: #ffffff;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid #cbd5e1;
   padding: 8px 18px;
   border-radius: var(--radius-pill);
   font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 700;
-  color: #1e1b4b;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-  box-shadow: var(--shadow-sm);
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
   position: relative;
 }
 
 .chant-player-btn:hover {
   background: #f8fafc;
-  border-color: #cbd5e1;
+  border-color: #94a3b8;
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.1);
+}
+
+.chant-play-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+.chant-btn-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.chant-btn-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.2px;
+}
+
+.chant-btn-sub {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fde68a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chant-track-sub {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chant-player-btn.playing {
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  background: linear-gradient(135deg, #090d16 0%, #1e1b4b 100%);
   color: #ffffff;
   border-color: #f59e0b;
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 4px 22px rgba(245, 158, 11, 0.4);
+  animation: audioGlowPulse 2.4s infinite ease-in-out;
+}
+
+.chant-player-btn.playing .chant-btn-title {
+  color: #ffffff;
+}
+
+@keyframes audioGlowPulse {
+  0%, 100% { box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35); }
+  50% { box-shadow: 0 6px 28px rgba(245, 158, 11, 0.65); }
 }
 
 /* Equalizer Bars Animation */
@@ -630,20 +751,21 @@ body {
   display: inline-flex;
   align-items: flex-end;
   gap: 2.5px;
-  height: 16px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .eq-bar {
-  width: 3px;
+  width: 3.5px;
   background: #f59e0b;
   border-radius: 2px;
   animation: eqPulse 1.2s infinite ease-in-out;
 }
 
-.eq-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
-.eq-bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
-.eq-bar:nth-child(3) { height: 9px; animation-delay: 0.2s; }
-.eq-bar:nth-child(4) { height: 16px; animation-delay: 0.4s; }
+.eq-bar:nth-child(1) { height: 7px; animation-delay: 0.1s; }
+.eq-bar:nth-child(2) { height: 16px; animation-delay: 0.3s; }
+.eq-bar:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+.eq-bar:nth-child(4) { height: 18px; animation-delay: 0.4s; }
 
 @keyframes eqPulse {
   0%, 100% { transform: scaleY(0.4); }
