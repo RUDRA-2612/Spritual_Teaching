@@ -6,11 +6,12 @@ export function renderStudentHome() {
 
   const cardsHtml = RELIGIONS_DATA.map(religion => {
     const { percent, completedCount, totalCount } = appState.getReligionProgress(religion.id);
-    const examData = appState.progress.examScores[religion.id];
 
     return `
-      <div class="religion-card" data-religion-id="${religion.id}">
-        <div class="card-header-art" style="background: ${religion.bgGradient}">
+      <div class="religion-card" data-religion-id="${religion.id}" style="--card-glow: ${religion.glowColor}">
+        <!-- Card Header with Religion Artwork & Subtle Gradient -->
+        <div class="card-header-art">
+          <img src="${religion.artImage}" class="art-bg-img" alt="${religion.name}" />
           <div class="card-symbol-badge">${religion.symbol}</div>
           <div>
             <div class="card-faith-name">${religion.name}</div>
@@ -36,7 +37,7 @@ export function renderStudentHome() {
           </div>
 
           <button class="card-action-btn" data-enter-religion="${religion.id}">
-            <span>Enter Realm</span>
+            <span>Enter Wisdom Realm</span>
             <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
           </button>
         </div>
@@ -51,11 +52,11 @@ export function renderStudentHome() {
         <div class="hero-text">
           <div class="hero-badge">
             <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
-            <span>Universal Wisdom Academy</span>
+            <span>Roots of Wisdom • Multi-Faith Academy</span>
           </div>
-          <h2 class="hero-title">Discover the Beautiful Goodness in Every Faith 🌟</h2>
+          <h2 class="hero-title">Discover the Sacred Goodness in Every Faith 🌟</h2>
           <p class="hero-subtitle">
-            Explore enchanting moral stories, animated wisdom lessons, and peaceful mindful moments from world traditions.
+            Immerse young hearts in inspiring moral stories, animated wisdom lessons, peaceful chants, and virtues from world traditions.
           </p>
 
           <div class="daily-quote-box">
@@ -71,7 +72,7 @@ export function renderStudentHome() {
           <h2>
             <span>World Wisdom Realms</span>
           </h2>
-          <p>Choose any faith below to start watching videos, reading stories, and earning virtue stars.</p>
+          <p>Choose any tradition below to explore authentic background art, listen to sacred chants, watch video lectures, and take certification exams.</p>
         </div>
       </div>
 

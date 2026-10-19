@@ -5,36 +5,43 @@ export const RELIGIONS_DATA = [
     hindiName: 'बौद्ध धर्म',
     symbol: '☸️',
     color: '#0d9488',
-    bgGradient: 'linear-gradient(135deg, #134e4a 0%, #0d9488 100%)',
-    artImage: '/assets/buddhism_banner_1792433397152.jpg',
+    glowColor: 'rgba(13, 148, 136, 0.4)',
+    bgGradient: 'linear-gradient(135deg, rgba(19, 78, 74, 0.85) 0%, rgba(13, 148, 136, 0.85) 100%)',
+    artImage: '/assets/buddhism_art.jpg',
     summary: 'Teachings of Gautam Buddha focusing on peaceful living, mindfulness, compassion towards all creatures, and inner stillness.',
     virtues: ['Compassion (Karuna)', 'Mindfulness', 'Peace', 'Gentleness'],
+    ambientChant: {
+      name: 'Om Mani Padme Hum & Singing Bowl',
+      hindiLabel: 'ॐ मणि पद्मे हूँ एवं तिब्बती ध्वनि',
+      type: 'buddhistChant',
+      description: 'Continuous soothing Tibetan singing bowl resonance and meditative peace vibration.'
+    },
     lectures: [
       {
         id: 'b1',
         title: 'Prince Siddhartha & The Wounded Swan',
         duration: '4:20 mins',
         description: 'How young Siddhartha proved that the one who protects life has greater right than the one who hurts it.',
-        videoPreviewUrl: '/assets/buddhism_banner_1792433397152.jpg'
+        videoPreviewUrl: '/assets/buddhism_art.jpg'
       },
       {
         id: 'b2',
         title: 'The Bodhi Tree & The Light of Enlightenment',
         duration: '5:10 mins',
         description: 'How sitting in quiet stillness helps us discover true happiness, clarity, and kindness.',
-        videoPreviewUrl: '/assets/buddhism_banner_1792433397152.jpg'
+        videoPreviewUrl: '/assets/buddhism_art.jpg'
       },
       {
         id: 'b3',
         title: 'The Eightfold Path Simplified for Kids',
         duration: '3:45 mins',
         description: 'Right words, right actions, and right effort: a practical roadmap for everyday joyful living.',
-        videoPreviewUrl: '/assets/buddhism_banner_1792433397152.jpg'
+        videoPreviewUrl: '/assets/buddhism_art.jpg'
       }
     ],
     storybook: {
       title: 'The Golden Swan and the Lesson of Contentment',
-      art: '/assets/buddhism_banner_1792433397152.jpg',
+      art: '/assets/buddhism_art.jpg',
       text: `Once upon a time near a quiet river in ancient India, there lived a graceful golden swan. The swan noticed a humble family in a small cottage struggling to buy food. Having a kind heart, the swan decided to shed one golden feather every month to help them. 
 
 The family was overjoyed and grateful. But after some time, greed crept into their hearts. "Why wait every month? Let us take all the feathers at once!" thought the family. 
@@ -146,36 +153,43 @@ When they tried to capture the swan, the golden feathers instantly turned into o
     hindiName: 'सनातन धर्म',
     symbol: '🕉️',
     color: '#d97706',
-    bgGradient: 'linear-gradient(135deg, #78350f 0%, #d97706 100%)',
-    artImage: '/assets/hinduism_banner_1792433417142.jpg',
+    glowColor: 'rgba(217, 119, 6, 0.45)',
+    bgGradient: 'linear-gradient(135deg, rgba(120, 53, 15, 0.85) 0%, rgba(217, 119, 6, 0.85) 100%)',
+    artImage: '/assets/hinduism_art.jpg',
     summary: 'One of the oldest spiritual traditions emphasizing Dharma (righteousness), Karma (deeds), and Seva (service).',
     virtues: ['Dharma (Righteousness)', 'Karma (Good Deeds)', 'Ahimsa (Non-violence)', 'Seva (Selfless Service)'],
+    ambientChant: {
+      name: 'Gayatri Mantra & Sacred Om Drone',
+      hindiLabel: 'गायत्री मंत्र एवं ॐ दिव्य नाद',
+      type: 'gayatriMantra',
+      description: 'Continuous sacred Gayatri vibration (Om Bhur Bhuva Swaha) and cosmic Tanpura drone.'
+    },
     lectures: [
       {
         id: 'h1',
         title: 'The Squirrel’s Little Pebble: Valuing Every Effort',
         duration: '4:15 mins',
         description: 'How a tiny squirrel rolling in sand to help build the great bridge won Lord Rama’s heart.',
-        videoPreviewUrl: '/assets/hinduism_banner_1792433417142.jpg'
+        videoPreviewUrl: '/assets/hinduism_art.jpg'
       },
       {
         id: 'h2',
         title: 'Why We Greet with "Namaste" & Light Diyas',
         duration: '3:50 mins',
         description: 'The divine spark in every living creature and why light symbolizes victory of wisdom over ignorance.',
-        videoPreviewUrl: '/assets/hinduism_banner_1792433417142.jpg'
+        videoPreviewUrl: '/assets/hinduism_art.jpg'
       },
       {
         id: 'h3',
         title: 'Karma: The Law of Echoes',
         duration: '4:45 mins',
         description: 'Whatever seeds of words and actions you plant will bloom back into your own garden.',
-        videoPreviewUrl: '/assets/hinduism_banner_1792433417142.jpg'
+        videoPreviewUrl: '/assets/hinduism_art.jpg'
       }
     ],
     storybook: {
       title: 'The Devotion of the Little Squirrel',
-      art: '/assets/hinduism_banner_1792433417142.jpg',
+      art: '/assets/hinduism_art.jpg',
       text: `When Lord Rama and the Vanara army were building the grand bridge across the ocean to Lanka, mighty warriors were carrying huge boulders and mountains. Among them was a tiny little squirrel. 
 
 The squirrel would dip into the sea, run to the shore, roll in the sand, and shake the sand particles between the stones. The giant monkeys laughed: "What can your tiny sand do, little one?" 
@@ -283,36 +297,43 @@ Lord Rama gently picked up the squirrel in his palms and caressed its back, crea
     hindiName: 'सिख धर्म',
     symbol: '☬',
     color: '#0284c7',
-    bgGradient: 'linear-gradient(135deg, #075985 0%, #0284c7 100%)',
-    artImage: '/assets/spiritual_academy_hero_1792433376185.jpg',
+    glowColor: 'rgba(2, 132, 199, 0.45)',
+    bgGradient: 'linear-gradient(135deg, rgba(7, 89, 133, 0.85) 0%, rgba(2, 132, 199, 0.85) 100%)',
+    artImage: '/assets/sikhism_art.jpg',
     summary: 'Founded by Guru Nanak Dev Ji, teaching absolute equality, honest living (Kirat Karo), and community sharing (Vand Chhako).',
     virtues: ['Equality of All', 'Vand Chhako (Sharing)', 'Kirat Karo (Honest Work)', 'Seva (Selfless Help)'],
+    ambientChant: {
+      name: 'Ik Onkar & Dilruba Divine Harmony',
+      hindiLabel: 'ੴ इक ओंकार एवं दिलरुबा स्वर',
+      type: 'ikOnkarChant',
+      description: 'Continuous peaceful Ik Onkar drone and celestial acoustic string resonance.'
+    },
     lectures: [
       {
         id: 's1',
         title: 'Guru Nanak & The Sacha Sauda (True Bargain)',
         duration: '4:40 mins',
-        description: 'Why feeding the hungry hungry sadhus was the most profitable trade young Nanak ever made.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        description: 'Why feeding the hungry sadhus was the most profitable trade young Nanak ever made.',
+        videoPreviewUrl: '/assets/sikhism_art.jpg'
       },
       {
         id: 's2',
         title: 'The Magic of Langar: Where Kings & Commoners Sit Together',
         duration: '3:55 mins',
         description: 'How community kitchens broke caste and social barriers to feed everyone with love.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/sikhism_art.jpg'
       },
       {
         id: 's3',
         title: 'Bhai Kanhaiya: Serving Water on the Battlefield',
         duration: '5:05 mins',
         description: 'Seeing God’s divine light in both friend and foe without discrimination.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/sikhism_art.jpg'
       }
     ],
     storybook: {
       title: 'Bhai Kanhaiya’s Universal Water Bag',
-      art: '/assets/spiritual_academy_hero_1792433376185.jpg',
+      art: '/assets/sikhism_art.jpg',
       text: `During a fierce battle in Punjab, a devoted Sikh named Bhai Kanhaiya walked between wounded soldiers with a goatskin bag of fresh water. Whenever someone groaned in pain, he poured cool water into their parched mouth. 
 
 Some soldiers noticed he was giving water not just to his fellow warriors, but also to wounded enemies! They took him to Guru Gobind Singh Ji to complain. 
@@ -430,36 +451,43 @@ Bhai Kanhaiya bowed humbly and replied: "My Guru, when I looked into their thirs
     hindiName: 'ईसाई धर्म',
     symbol: '✝️',
     color: '#7c3aed',
-    bgGradient: 'linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)',
-    artImage: '/assets/spiritual_academy_hero_1792433376185.jpg',
+    glowColor: 'rgba(124, 58, 237, 0.45)',
+    bgGradient: 'linear-gradient(135deg, rgba(76, 29, 149, 0.85) 0%, rgba(124, 58, 237, 0.85) 100%)',
+    artImage: '/assets/christianity_art.jpg',
     summary: 'Teachings of Jesus Christ focusing on unconditional love, forgiving others from the heart, and the Golden Rule.',
     virtues: ['Unconditional Love (Agape)', 'Forgiveness', 'The Golden Rule', 'Helping the Needy'],
+    ambientChant: {
+      name: 'Cathedral Chorus & Angelic Harp',
+      hindiLabel: 'प्रार्थना स्वर एवं स्वर्गीय वीणा',
+      type: 'christianHymn',
+      description: 'Continuous ethereal choir pad and gentle acoustic harp harmonic glissando.'
+    },
     lectures: [
       {
         id: 'c1',
         title: 'The Parable of the Good Samaritan',
         duration: '4:30 mins',
         description: 'Who is our true neighbor? How compassion transcends borders, nationalities, and differences.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/christianity_art.jpg'
       },
       {
         id: 'c2',
         title: 'The Golden Rule: Treating Others with Honor',
         duration: '3:40 mins',
         description: '"Do to others whatever you would like them to do to you" - the foundational rule of friendship.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/christianity_art.jpg'
       },
       {
         id: 'c3',
         title: 'Forgiving Seventy Times Seven',
         duration: '4:50 mins',
         description: 'Letting go of anger and grudges so your own heart stays light and joyful.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/christianity_art.jpg'
       }
     ],
     storybook: {
       title: 'The Traveler on the Jericho Road',
-      art: '/assets/spiritual_academy_hero_1792433376185.jpg',
+      art: '/assets/christianity_art.jpg',
       text: `A traveler was journeying down the rocky road from Jerusalem to Jericho when robbers attacked him, stole his belongings, and left him wounded by the wayside. 
 
 A high priest passed by, but crossed to the other side of the road. Next, a temple helper came by, looked at the injured man, and walked away quickly. 
@@ -567,36 +595,43 @@ Then came a Samaritan—a man from a community that ordinary travelers looked do
     hindiName: 'इस्लाम धर्म',
     symbol: '☪️',
     color: '#059669',
-    bgGradient: 'linear-gradient(135deg, #064e3b 0%, #059669 100%)',
-    artImage: '/assets/spiritual_academy_hero_1792433376185.jpg',
+    glowColor: 'rgba(5, 150, 105, 0.45)',
+    bgGradient: 'linear-gradient(135deg, rgba(6, 78, 59, 0.85) 0%, rgba(5, 150, 105, 0.85) 100%)',
+    artImage: '/assets/islam_art.jpg',
     summary: 'Teachings emphasizing peace (Salaam), charity (Zakat), trustworthiness (Amanah), and showing kindness to all creation.',
     virtues: ['Peace (Salaam)', 'Charity (Zakat & Sadqah)', 'Trustworthiness (Amanah)', 'Kindness to Nature'],
+    ambientChant: {
+      name: 'Subhanallah Meditation & Ney Flute',
+      hindiLabel: 'सुब्हानअल्लाह ध्यान एवं बांसुरी',
+      type: 'islamicChant',
+      description: 'Continuous tranquil desert reed flute resonance and peaceful dhikr vibration.'
+    },
     lectures: [
       {
         id: 'i1',
         title: 'The Thirsty Dog & The Traveler’s Shoe',
         duration: '4:10 mins',
         description: 'How an act of drawing water from a deep well for a panting stray dog brought immense spiritual blessing.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/islam_art.jpg'
       },
       {
         id: 'i2',
         title: 'Amanah: The Value of Absolute Honesty',
         duration: '3:50 mins',
         description: 'Why keeping promises and being truthful makes a person beloved by everyone.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/islam_art.jpg'
       },
       {
         id: 'i3',
         title: 'Sadqah: Even a Warm Smile is Charity',
         duration: '4:25 mins',
         description: 'Charity is not just money; removing a sharp thorn from a path or offering a smile is also charity.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/islam_art.jpg'
       }
     ],
     storybook: {
       title: 'The Wells of Compassion',
-      art: '/assets/spiritual_academy_hero_1792433376185.jpg',
+      art: '/assets/islam_art.jpg',
       text: `Under the blazing desert sun, a traveler walked for miles until his throat burned with thirst. After searching for hours, he finally discovered a deep well. He climbed down into the cool shadows, drank sweet water, and refreshed his spirit. 
 
 As he climbed back out, he noticed a dog panting heavily, licking moist desert sand in desperate search of moisture. The traveler thought to himself: "This poor creature is suffering from the exact same thirst that I just felt." 
@@ -704,36 +739,43 @@ The well had no bucket or rope. Without hesitation, the man climbed back down in
     hindiName: 'जैन धर्म',
     symbol: '🪷',
     color: '#e11d48',
-    bgGradient: 'linear-gradient(135deg, #881337 0%, #e11d48 100%)',
-    artImage: '/assets/spiritual_academy_hero_1792433376185.jpg',
+    glowColor: 'rgba(225, 29, 72, 0.45)',
+    bgGradient: 'linear-gradient(135deg, rgba(136, 19, 55, 0.85) 0%, rgba(225, 29, 72, 0.85) 100%)',
+    artImage: '/assets/jainism_art.jpg',
     summary: 'Teachings of Bhagwan Mahavira emphasizing supreme Ahimsa (non-violence to all life forms), Aparigraha (non-greed), and truth.',
     virtues: ['Ahimsa Paramo Dharma', 'Reverence for All Life', 'Aparigraha (Simplicity)', 'Forgiveness (Micchami Dukkadam)'],
+    ambientChant: {
+      name: 'Navkar Mantra & Sacred Temple Chimes',
+      hindiLabel: 'णमोकार मंत्र एवं पावन घंटनाद',
+      type: 'navkarChant',
+      description: 'Continuous sacred Navkar vibration and peaceful temple bell overtones.'
+    },
     lectures: [
       {
         id: 'j1',
         title: 'Lord Mahavira & Living in Harmony with All Beings',
         duration: '4:20 mins',
         description: 'How every tiny creature—from ants to birds—cherishes its own life just as much as we do.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/jainism_art.jpg'
       },
       {
         id: 'j2',
         title: 'Micchami Dukkadam: The Universal Festival of Forgiveness',
         duration: '3:45 mins',
         description: 'Asking forgiveness from every single creature and letting go of all ill-will.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/jainism_art.jpg'
       },
       {
         id: 'j3',
         title: 'Aparigraha: Learning to Share and Live Lightly',
         duration: '4:10 mins',
         description: 'Why having fewer wants leaves more resources for nature and fellow humans.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/jainism_art.jpg'
       }
     ],
     storybook: {
       title: 'The Great King and the Elephant with Five Friends',
-      art: '/assets/spiritual_academy_hero_1792433376185.jpg',
+      art: '/assets/jainism_art.jpg',
       text: `In an ancient city, five wise travelers who were blind from birth were asked to describe an elephant. 
 
 The first touched its sturdy leg and declared: "An elephant is like a giant tree trunk!" 
@@ -849,36 +891,43 @@ They began arguing loudly. A gentle Jain sage walked past and said softly: "Each
     hindiName: 'यहूदी धर्म',
     symbol: '✡️',
     color: '#1d4ed8',
-    bgGradient: 'linear-gradient(135deg, #172554 0%, #1d4ed8 100%)',
-    artImage: '/assets/spiritual_academy_hero_1792433376185.jpg',
+    glowColor: 'rgba(29, 78, 216, 0.45)',
+    bgGradient: 'linear-gradient(135deg, rgba(23, 37, 84, 0.85) 0%, rgba(29, 78, 216, 0.85) 100%)',
+    artImage: '/assets/judaism_art.jpg',
     summary: 'Ancient wisdom tradition emphasizing Tikkun Olam (repairing the world), pursuing justice, and family gratitude on Shabbat.',
     virtues: ['Tikkun Olam (Heal the World)', 'Seeking Wisdom', 'Tzedakah (Justice & Giving)', 'Shabbat Gratitude'],
+    ambientChant: {
+      name: 'Shalom Aleichem & Sacred Harp',
+      hindiLabel: 'शालोम अलैखेम एवं दिव्य वीणा',
+      type: 'shalomChant',
+      description: 'Continuous soothing Shalom peace chords and acoustic warm harp resonance.'
+    },
     lectures: [
       {
         id: 'jd1',
         title: 'Tikkun Olam: Each of Us Can Repair the World',
         duration: '4:15 mins',
         description: 'How every kind word, planted tree, and fair deed fixes a broken piece of our world.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/judaism_art.jpg'
       },
       {
         id: 'jd2',
         title: 'The Story of King Solomon’s Wisdom',
         duration: '4:50 mins',
         description: 'Why asking for an understanding heart to help others is greater than asking for gold.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/judaism_art.jpg'
       },
       {
         id: 'jd3',
         title: 'Shabbat: The Blessing of a Family Rest Day',
         duration: '3:35 mins',
         description: 'Turning off screens, lighting candles, and celebrating love and gratitude around the table.',
-        videoPreviewUrl: '/assets/spiritual_academy_hero_1792433376185.jpg'
+        videoPreviewUrl: '/assets/judaism_art.jpg'
       }
     ],
     storybook: {
       title: 'The Two Brothers and the Shared Field of Wheat',
-      art: '/assets/spiritual_academy_hero_1792433376185.jpg',
+      art: '/assets/judaism_art.jpg',
       text: `In ancient Jerusalem, two brothers farmed a shared field of wheat. One brother was married and had four children, while the younger brother lived alone. 
 
 After harvest, they divided the sheaves of wheat equally into two stacks. At night, the older brother thought: "My brother is alone; he has no family to support him in old age. He needs more wheat." So in the dark of night, he carried three sheaves over to his brother’s stack. 

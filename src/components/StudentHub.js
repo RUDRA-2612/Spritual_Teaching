@@ -7,34 +7,57 @@ export function renderStudentHub(religionId, activeTab = 'lectures') {
 
   const { percent, completedCount, totalCount } = appState.getReligionProgress(religion.id);
   const examResult = appState.progress.examScores[religion.id];
+  const chant = religion.ambientChant;
+  const isChantPlaying = appState.ambientChantPlaying;
 
   return `
     <div class="main-content hub-view">
-      <!-- Back Bar -->
+      <!-- Back Bar & Top Right Ambient Chant Player -->
       <div class="hub-header-bar">
         <button class="back-btn" id="btn-back-to-realms">
           <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
           <span>Back to All Realms</span>
         </button>
 
-        <div class="stat-chip stars">
-          <span>⭐ ${appState.progress.stars} Stars</span>
+        <div class="chant-player-container">
+          <!-- Continuous Sacred Chant Looper Button -->
+          <button class="chant-player-btn ${isChantPlaying ? 'playing' : ''}" id="btn-ambient-chant-toggle" data-religion-id="${religion.id}" title="Click to loop sacred chant">
+            ${isChantPlaying ? `
+              <div class="equalizer-anim">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+              </div>
+              <span>🔊 Playing: ${chant.name} (Looping)</span>
+            ` : `
+              <i data-lucide="volume-2" style="width: 17px; height: 17px; color: ${religion.color};"></i>
+              <span>Play ${chant.name} (Continuous Audio)</span>
+            `}
+          </button>
+
+          <div class="stat-chip stars">
+            <span>⭐ ${appState.progress.stars} Stars</span>
+          </div>
         </div>
       </div>
 
-      <!-- Religion Hero Banner -->
-      <div class="hub-hero" style="background: ${religion.bgGradient}">
+      <!-- Religion Hero Banner with Background Sacred Artwork -->
+      <div class="hub-hero" style="background: ${religion.bgGradient}; --hub-art-bg: url('${religion.artImage}')">
         <div class="hub-hero-info">
           <h2>
             <span>${religion.symbol}</span>
             <span>${religion.name}</span>
           </h2>
           <p>${religion.summary}</p>
+          <div style="font-size: 13px; font-weight: 700; color: #fde68a; margin-top: 8px;">
+            🎵 Sacred Sound: ${chant.hindiLabel} • ${chant.description}
+          </div>
         </div>
 
-        <div style="background: rgba(255,255,255,0.18); backdrop-filter: blur(8px); padding: 14px 20px; border-radius: 12px; text-align: center;">
+        <div class="hub-hero-stat">
           <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Progress</div>
-          <div style="font-size: 22px; font-weight: 800;">${percent}%</div>
+          <div style="font-size: 26px; font-weight: 800;">${percent}%</div>
           <div style="font-size: 11px; opacity: 0.9;">${completedCount}/${totalCount} Completed</div>
         </div>
       </div>
@@ -81,7 +104,6 @@ function renderTabContent(religion, activeTab, examResult) {
   return '';
 }
 
-/* 1. Video Lectures Tab */
 function renderLecturesTab(religion) {
   const currentLecture = religion.lectures[0];
   const isCompleted = appState.progress.completedLectures[currentLecture.id];
@@ -104,10 +126,9 @@ function renderLecturesTab(religion) {
   return `
     <div class="tab-pane active">
       <div class="video-layout">
-        <!-- Video Player Box -->
         <div>
           <div class="video-player-box">
-            <div class="video-screen">
+            <div class="video-screen" style="background-image: url('${religion.artImage}');">
               <button class="play-pause-btn" id="btn-video-play">
                 <i data-lucide="play" style="width: 28px; height: 28px; fill: var(--primary);"></i>
               </button>
@@ -124,7 +145,6 @@ function renderLecturesTab(religion) {
             </div>
           </div>
 
-          <!-- Video Details -->
           <div class="video-details-box">
             <h3 style="font-size: 18px; margin-bottom: 6px;">${currentLecture.title}</h3>
             <p style="font-size: 13.5px; color: #475569; line-height: 1.6;">${currentLecture.description}</p>
@@ -136,7 +156,6 @@ function renderLecturesTab(religion) {
           </div>
         </div>
 
-        <!-- Playlist Sidebar -->
         <div class="playlist-card">
           <h3>Course Lectures (${religion.lectures.length})</h3>
           <div>
@@ -148,7 +167,6 @@ function renderLecturesTab(religion) {
   `;
 }
 
-/* 2. Moral Storybooks Tab */
 function renderStoriesTab(religion) {
   const story = religion.storybook;
   return `
@@ -184,12 +202,10 @@ function renderStoriesTab(religion) {
   `;
 }
 
-/* 3. Core Teachings Tab */
 function renderTeachingsTab(religion) {
   const cardsHtml = religion.teachings.map((t, idx) => `
     <div class="flip-card" data-flip-card="${idx}">
       <div class="flip-card-inner">
-        <!-- Front -->
         <div class="flip-card-front">
           <div class="card-icon">${t.icon}</div>
           <h4>${t.principle}</h4>
@@ -198,7 +214,6 @@ function renderTeachingsTab(religion) {
             Tap to see real-life example ➔
           </div>
         </div>
-        <!-- Back -->
         <div class="flip-card-back">
           <h4>🌟 Example for Kids</h4>
           <p>${t.example}</p>
@@ -231,7 +246,6 @@ function renderTeachingsTab(religion) {
   `;
 }
 
-/* 4. Mindful Calm Tab */
 function renderCalmTab(religion) {
   const calm = religion.calm;
   return `
@@ -254,14 +268,13 @@ function renderCalmTab(religion) {
 
         <button class="sound-chime-btn" id="btn-sound-chime" data-sound-type="${calm.chimeSound}">
           <i data-lucide="bell" style="width: 18px; height: 18px;"></i>
-          <span>Play Peaceful Chime Sound</span>
+          <span>Play Single Chime Sound</span>
         </button>
       </div>
     </div>
   `;
 }
 
-/* 5. Assessment & Final Exam Tab */
 function renderExamTab(religion, examResult) {
   const questions = religion.finalExam;
 

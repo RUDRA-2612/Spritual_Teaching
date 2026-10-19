@@ -10,13 +10,25 @@ import { RELIGIONS_DATA } from './data.js';
 function renderApp() {
   const app = document.getElementById('app');
 
+  // Ambient floating particles
+  const particlesHtml = `
+    <div class="ambient-particles-bg">
+      <div class="particle" style="left: 10%; animation-delay: 0s; width: 6px; height: 6px;"></div>
+      <div class="particle" style="left: 25%; animation-delay: 4s; width: 8px; height: 8px; background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 80%);"></div>
+      <div class="particle" style="left: 45%; animation-delay: 8s; width: 5px; height: 5px;"></div>
+      <div class="particle" style="left: 65%; animation-delay: 2s; width: 7px; height: 7px; background: radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 80%);"></div>
+      <div class="particle" style="left: 80%; animation-delay: 6s; width: 9px; height: 9px;"></div>
+      <div class="particle" style="left: 92%; animation-delay: 11s; width: 6px; height: 6px;"></div>
+    </div>
+  `;
+
   const navHtml = `
     <nav class="navbar">
       <div class="nav-brand" id="brand-home-link">
         <div class="brand-icon">🌟</div>
         <div class="brand-text">
-          <h1>Universal Spiritual Academy</h1>
-          <span>Multi-Faith Wisdom for Kids</span>
+          <h1>Roots of Wisdom</h1>
+          <span>ज्ञान मूल • Global Multi-Faith Academy</span>
         </div>
       </div>
 
@@ -45,8 +57,8 @@ function renderApp() {
           </div>
         ` : ''}
 
-        <!-- Audio Sound Toggle -->
-        <button class="sound-toggle-btn" id="btn-sound-toggle" title="Toggle Peaceful Chimes">
+        <!-- Master Sound FX Toggle -->
+        <button class="sound-toggle-btn" id="btn-sound-toggle" title="Toggle Sound FX">
           <i data-lucide="${appState.soundEnabled ? 'volume-2' : 'volume-x'}" style="width: 18px; height: 18px;"></i>
         </button>
       </div>
@@ -70,7 +82,7 @@ function renderApp() {
     }
   }
 
-  app.innerHTML = navHtml + mainBodyHtml;
+  app.innerHTML = particlesHtml + navHtml + mainBodyHtml;
 
   // Initialize Lucide icons
   if (window.lucide) {
@@ -100,6 +112,12 @@ function attachEventListeners() {
   document.getElementById('btn-sound-toggle')?.addEventListener('click', () => {
     appState.toggleSound();
     if (appState.soundEnabled) appState.playChime('singingBowl');
+  });
+
+  // CONTINUOUS SACRED AMBIENT CHANT TOGGLE (TOP RIGHT OF HUB)
+  document.getElementById('btn-ambient-chant-toggle')?.addEventListener('click', (e) => {
+    const religionId = e.currentTarget.getAttribute('data-religion-id');
+    appState.toggleAmbientChant(religionId);
   });
 
   // Child selector in Parent Home
@@ -235,7 +253,6 @@ function attachEventListeners() {
     examForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const religionId = examForm.getAttribute('data-religion-id');
-      // Calculate score based on selections
       const score = 96;
       const grade = 'A+';
       appState.saveExamScore(religionId, score, grade);

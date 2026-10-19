@@ -7,8 +7,10 @@ export function renderParentHome() {
     const examData = appState.progress.examScores[religion.id];
 
     return `
-      <div class="religion-card" data-parent-religion-id="${religion.id}">
-        <div class="card-header-art" style="background: ${religion.bgGradient}">
+      <div class="religion-card" data-parent-religion-id="${religion.id}" style="--card-glow: ${religion.glowColor}">
+        <!-- Card Header with Religion Artwork & Subtle Gradient -->
+        <div class="card-header-art">
+          <img src="${religion.artImage}" class="art-bg-img" alt="${religion.name}" />
           <div class="card-symbol-badge">${religion.symbol}</div>
           <div>
             <div class="card-faith-name">${religion.name}</div>
@@ -50,7 +52,7 @@ export function renderParentHome() {
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
         <div>
           <h2 style="font-family: var(--font-display); font-size: 26px; font-weight: 800; color: #0f172a;">
-            👨‍👩‍👧 Parent Monitoring & Growth Dashboard
+            👨‍👩‍👧 Roots of Wisdom • Parent Monitoring Dashboard
           </h2>
           <p style="font-size: 14px; color: #64748b;">
             Track your child's moral learning journey, attendance, and weekly study streaks across all world religions.
