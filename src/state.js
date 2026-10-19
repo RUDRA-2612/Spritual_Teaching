@@ -23,7 +23,7 @@ class AppState {
     this.currentChantReligionId = null;
 
     // Load progress from localStorage (v3 for rich interactive data)
-    const savedProgress = localStorage.getItem('omniwisdom_progress_v3');
+    const savedProgress = localStorage.getItem('unisoul_progress_v3') || localStorage.getItem('omniwisdom_progress_v3');
     if (savedProgress) {
       try {
         this.progress = JSON.parse(savedProgress);
@@ -56,7 +56,7 @@ class AppState {
   }
 
   save() {
-    localStorage.setItem('omniwisdom_progress_v3', JSON.stringify(this.progress));
+    localStorage.setItem('unisoul_progress_v3', JSON.stringify(this.progress));
     this.notify();
   }
 

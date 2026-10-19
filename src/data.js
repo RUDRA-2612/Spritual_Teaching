@@ -1,5 +1,5 @@
 export const ACADEMY_INFO = {
-  name: "OmniWisdom Academy",
+  name: "UniSoul",
   tagline: "Universal Moral Values, Sacred Heritage & Cultural Harmony for Young Minds",
   subtitle: "Explore interactive video lessons, authentic sacred audio, illustrated moral stories, and virtue certifications across world traditions.",
   mission: "Fostering global empathy, mutual respect, and ethical character through timeless spiritual wisdom."

@@ -4,7 +4,7 @@ export function renderPortalGate() {
       <div class="portal-gate-container">
         <div class="portal-brand-header">
           <div class="portal-brand-icon">🌟</div>
-          <h1>OmniWisdom Academy</h1>
+          <h1>UniSoul</h1>
           <p class="portal-brand-tagline">Universal Moral Values, Sacred Heritage & Cultural Harmony</p>
         </div>
 

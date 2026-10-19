@@ -56,7 +56,7 @@ export function renderParentHome() {
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
         <div>
           <h2 style="font-family: var(--font-display); font-size: 26px; font-weight: 800; color: #0f172a;">
-            👨‍👩‍👧 OmniWisdom Academy • Parent & Educator Portal
+            👨‍👩‍👧 UniSoul • Parent & Educator Portal
           </h2>
           <p style="font-size: 14px; color: #64748b;">
             Track your child's moral learning journey, attendance, and weekly study streaks across all world religions.

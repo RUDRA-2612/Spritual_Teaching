@@ -11,7 +11,7 @@ export function renderFooter() {
         <div class="footer-brand-col">
           <div class="footer-brand-header">
             <span class="footer-logo">🌟</span>
-            <h3>OmniWisdom Academy</h3>
+            <h3>UniSoul</h3>
           </div>
           <p class="footer-mission-text">
             A secular, compassionate learning sanctuary designed to introduce children to the shared moral heart of humanity through authentic sacred audio, animated parables, and timeless cultural virtues.
@@ -45,7 +45,7 @@ export function renderFooter() {
       </div>
 
       <div class="footer-bottom-bar">
-        <div>© 2026 OmniWisdom Academy. All sacred chants and cultural traditions presented with respect for global educational purposes.</div>
+        <div>© 2026 UniSoul. All sacred chants and cultural traditions presented with respect for global educational purposes.</div>
       </div>
     </footer>
   `;

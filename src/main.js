@@ -51,7 +51,7 @@ function renderApp() {
         <div class="nav-brand" id="brand-home-link" title="Go to All Realms Home">
           <div class="brand-icon">🌟</div>
           <div class="brand-text">
-            <h1>OmniWisdom Academy</h1>
+            <h1>UniSoul</h1>
             <span>Universal Moral & Cultural Learning</span>
           </div>
         </div>
