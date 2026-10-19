@@ -55,32 +55,33 @@ export function renderStudentHub(religionId, activeTab = 'lectures') {
       <div class="hub-hero" style="background: ${religion.bgGradient}; --hub-art-bg: url('${religion.artImage}')">
         <div class="hub-hero-info">
           <h2>
-            <span class="hub-hero-symbol">${renderReligionSymbol(religion, 38)}</span>
+            <span class="hub-hero-symbol">${renderReligionSymbol(religion, 36)}</span>
             <span>${religion.name}</span>
           </h2>
+          <p class="hub-hero-sub">${religion.subname}</p>
           <p>${religion.summary}</p>
-          <div style="font-size: 13px; font-weight: 700; color: #fde68a; margin-top: 8px;">
-            🎵 Sacred Sound: ${chant.hindiLabel} • ${chant.description}
+          <div class="hub-sound-info-tag">
+            🎵 Sacred Audio: ${chant.name} • ${chant.description}
           </div>
         </div>
 
         <div class="hub-hero-stat">
           <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Progress</div>
-          <div style="font-size: 26px; font-weight: 800;">${percent}%</div>
-          <div style="font-size: 11px; opacity: 0.9;">${completedCount}/${totalCount} Completed</div>
+          <div style="font-size: 28px; font-weight: 800;">${percent}%</div>
+          <div style="font-size: 11.5px; opacity: 0.9;">${completedCount}/${totalCount} Completed</div>
         </div>
       </div>
 
       <!-- Navigation Tabs -->
       <div class="hub-nav-tabs">
         <button class="hub-tab-btn ${activeTab === 'lectures' ? 'active' : ''}" data-hub-tab="lectures">
-          <span>🎬 Video Lectures</span>
+          <span>🎬 Video Lectures (${religion.lectures.length})</span>
         </button>
         <button class="hub-tab-btn ${activeTab === 'stories' ? 'active' : ''}" data-hub-tab="stories">
-          <span>📚 Moral Stories</span>
+          <span>📚 Moral Stories (${religion.stories.length})</span>
         </button>
         <button class="hub-tab-btn ${activeTab === 'teachings' ? 'active' : ''}" data-hub-tab="teachings">
-          <span>💡 Core Teachings</span>
+          <span>💡 Core Pillars (${religion.teachings.length})</span>
         </button>
         <button class="hub-tab-btn ${activeTab === 'calm' ? 'active' : ''}" data-hub-tab="calm">
           <span>🧘 Mindful Calm</span>
@@ -113,21 +114,31 @@ function renderTabContent(religion, activeTab, examResult) {
   return '';
 }
 
+/* =================================================================
+   1. VIDEO LECTURES TAB (WORKING PLAYLIST & WORKING VIDEO PLAYER)
+   ================================================================= */
 function renderLecturesTab(religion) {
-  const currentLecture = religion.lectures[0];
+  // Select active lecture from state, or default to first lecture
+  const currentLecture = religion.lectures.find(l => l.id === appState.activeLectureId) || religion.lectures[0];
   const isCompleted = appState.progress.completedLectures[currentLecture.id];
 
   const playlistHtml = religion.lectures.map((lec, idx) => {
-    const done = appState.progress.completedLectures[lec.id];
+    const isDone = appState.progress.completedLectures[lec.id];
+    const isCurrent = lec.id === currentLecture.id;
+
     return `
-      <div class="lecture-list-item ${idx === 0 ? 'active' : ''}" data-lecture-item="${lec.id}">
-        <div class="lecture-num">
-          ${done ? '✓' : idx + 1}
+      <div class="lecture-list-item ${isCurrent ? 'active' : ''}" data-select-lecture="${lec.id}">
+        <div class="lecture-num ${isDone ? 'done' : ''}">
+          ${isDone ? '✓' : idx + 1}
         </div>
         <div class="lecture-info">
           <div class="lecture-title">${lec.title}</div>
-          <div class="lecture-dur">${lec.duration} • ${done ? '<span style="color:#10b981; font-weight:700;">Completed</span>' : 'Pending'}</div>
+          <div class="lecture-dur">
+            ${lec.duration} • 
+            ${isDone ? '<span class="status-done">Completed</span>' : '<span class="status-pending">Click to Watch</span>'}
+          </div>
         </div>
+        ${isCurrent ? '<span class="playing-indicator">▶ Now Playing</span>' : ''}
       </div>
     `;
   }).join('');
@@ -135,39 +146,64 @@ function renderLecturesTab(religion) {
   return `
     <div class="tab-pane active">
       <div class="video-layout">
-        <div>
+        <!-- Main Player Column -->
+        <div class="video-player-column">
           <div class="video-player-box">
-            <div class="video-screen" style="background-image: url('${religion.artImage}');">
-              <button class="play-pause-btn" id="btn-video-play">
-                <i data-lucide="play" style="width: 28px; height: 28px; fill: var(--primary);"></i>
-              </button>
-              <div class="video-caption">Animated Lesson: ${currentLecture.title}</div>
+            <!-- Animated Scene Visual Canvas -->
+            <div class="video-screen" id="video-screen-player" style="background-image: url('${religion.artImage}')">
+              <div class="video-scene-overlay">
+                <button class="play-pause-btn" id="btn-video-play-toggle">
+                  <i data-lucide="play" style="width: 32px; height: 32px; fill: #ffffff; color: #ffffff;"></i>
+                </button>
+                <div class="video-caption-bar">
+                  <span class="video-tag">Animated Wisdom Lesson</span>
+                  <div class="video-headline">${currentLecture.title}</div>
+                </div>
+              </div>
             </div>
             
+            <!-- Controls Bar -->
             <div class="video-controls-bar">
-              <span style="font-size: 12px; font-weight: 600;">02:40</span>
-              <div class="scrub-track">
-                <div class="scrub-progress"></div>
+              <button class="ctrl-btn" id="btn-video-ctrl-play" title="Play / Pause">
+                <i data-lucide="play" style="width: 16px; height: 16px;"></i>
+              </button>
+              <span class="time-display" id="video-time-cur">01:25</span>
+              <div class="scrub-track" id="video-scrub-bar">
+                <div class="scrub-progress" id="video-scrub-fill" style="width: 35%;"></div>
               </div>
-              <span style="font-size: 12px; font-weight: 600;">${currentLecture.duration}</span>
-              <span style="font-size: 11px; background:#334155; padding: 2px 6px; border-radius:4px;">1.0x</span>
+              <span class="time-display">${currentLecture.duration}</span>
+              <span class="speed-pill">1.0x</span>
             </div>
           </div>
 
           <div class="video-details-box">
-            <h3 style="font-size: 18px; margin-bottom: 6px;">${currentLecture.title}</h3>
-            <p style="font-size: 13.5px; color: #475569; line-height: 1.6;">${currentLecture.description}</p>
-            
-            <button class="complete-lecture-btn" id="btn-complete-lecture" data-lecture-id="${currentLecture.id}">
-              <i data-lucide="${isCompleted ? 'check-circle-2' : 'award'}" style="width: 18px; height: 18px;"></i>
-              <span>${isCompleted ? 'Lecture Completed (+20 Stars Earned!)' : 'Mark as Completed (+20 Stars)'}</span>
-            </button>
+            <div class="video-details-header">
+              <div>
+                <h3>${currentLecture.title}</h3>
+                <p class="video-desc">${currentLecture.description}</p>
+              </div>
+              
+              <button class="complete-lecture-btn ${isCompleted ? 'completed' : ''}" id="btn-complete-lecture" data-lecture-id="${currentLecture.id}">
+                <i data-lucide="${isCompleted ? 'check-circle-2' : 'award'}" style="width: 18px; height: 18px;"></i>
+                <span>${isCompleted ? '✓ Completed (+25 Stars Earned)' : 'Mark as Completed (+25 Stars)'}</span>
+              </button>
+            </div>
+
+            <!-- Key Takeaway Callout -->
+            <div class="video-takeaway-banner">
+              <strong>💡 Key Moral Takeaway:</strong> ${currentLecture.takeaway}
+            </div>
           </div>
         </div>
 
+        <!-- Right Side Clickable Playlist -->
         <div class="playlist-card">
-          <h3>Course Lectures (${religion.lectures.length})</h3>
-          <div>
+          <div class="playlist-header">
+            <h3>Course Lectures</h3>
+            <span class="playlist-count">${religion.lectures.length} Lessons</span>
+          </div>
+          <p class="playlist-hint">Click any lecture below to start watching:</p>
+          <div class="playlist-items-list">
             ${playlistHtml}
           </div>
         </div>
@@ -176,34 +212,63 @@ function renderLecturesTab(religion) {
   `;
 }
 
+/* =================================================================
+   2. MORAL STORIES TAB (MULTIPLE STORIES SELECTOR & AUDIO READER)
+   ================================================================= */
 function renderStoriesTab(religion) {
-  const story = religion.storybook;
+  const currentStory = religion.stories.find(s => s.id === appState.activeStoryId) || religion.stories[0];
+
+  const storySelectorHtml = religion.stories.map((story) => {
+    const isSelected = story.id === currentStory.id;
+    return `
+      <div class="story-select-pill ${isSelected ? 'active' : ''}" data-select-story="${story.id}">
+        <span class="pill-icon">📖</span>
+        <div class="pill-texts">
+          <span class="pill-title">${story.title}</span>
+          <span class="pill-dur">${story.readingTime} read</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
   return `
     <div class="tab-pane active">
+      <!-- Story Selector Carousel -->
+      <div class="story-selector-bar">
+        <span class="selector-label">Choose a Parable to Read:</span>
+        <div class="story-pills-row">
+          ${storySelectorHtml}
+        </div>
+      </div>
+
+      <!-- Main Story Card -->
       <div class="storybook-container">
         <div class="story-art-frame">
-          <img src="${story.art}" alt="${story.title}" />
+          <img src="${currentStory.art}" alt="${currentStory.title}" />
+          <div class="story-art-tag">${currentStory.subtitle}</div>
         </div>
 
         <div class="story-content">
           <div class="audio-narrator-bar">
-            <button class="audio-play-btn" id="btn-read-aloud">
+            <button class="audio-play-btn" id="btn-read-aloud" data-story-id="${currentStory.id}">
               <i data-lucide="volume-2" style="width: 18px; height: 18px;"></i>
             </button>
             <div style="flex: 1;">
-              <div style="font-size: 13px; font-weight: 700; color: #1e1b4b;">Listen to Audio Story</div>
-              <div style="font-size: 11.5px; color: #64748b;">Narration by Wisdom Sage • Click to read aloud</div>
+              <div style="font-size: 13.5px; font-weight: 700; color: #1e1b4b;">Read Aloud Voice Narration</div>
+              <div style="font-size: 11.5px; color: #64748b;">Narrated by Wisdom Sage • Click to listen</div>
             </div>
+            <span class="story-time-badge">⏱️ ${currentStory.readingTime}</span>
           </div>
 
-          <h3>${story.title}</h3>
+          <h3 class="story-main-title">${currentStory.title}</h3>
+          <div class="story-subtitle-tag">${currentStory.subtitle}</div>
           
           <div class="story-body-text" id="story-paragraphs">
-            ${story.text.split('\n\n').map(p => `<p style="margin-bottom: 12px;">${p}</p>`).join('')}
+            ${currentStory.text.split('\n\n').map(p => `<p>${p}</p>`).join('')}
           </div>
 
           <div class="moral-takeaway-banner">
-            🌟 <strong>Moral Takeaway:</strong> ${story.moralTakeaway}
+            🌟 <strong>Moral Takeaway:</strong> ${currentStory.moralTakeaway}
           </div>
         </div>
       </div>
@@ -211,23 +276,23 @@ function renderStoriesTab(religion) {
   `;
 }
 
+/* =================================================================
+   3. CORE TEACHINGS TAB (CLICKABLE INTO INTERACTIVE WINDOW)
+   ================================================================= */
 function renderTeachingsTab(religion) {
   const cardsHtml = religion.teachings.map((t, idx) => `
-    <div class="flip-card" data-flip-card="${idx}">
-      <div class="flip-card-inner">
-        <div class="flip-card-front">
-          <div class="card-icon">${t.icon}</div>
-          <h4>${t.principle}</h4>
-          <span>${t.subtitle}</span>
-          <div style="font-size: 11px; color: var(--primary); font-weight: 700; margin-top: 14px;">
-            Tap to see real-life example ➔
-          </div>
-        </div>
-        <div class="flip-card-back">
-          <h4>🌟 Example for Kids</h4>
-          <p>${t.example}</p>
-          <div style="font-size: 11px; opacity: 0.8; margin-top: 12px;">Tap to flip back ↺</div>
-        </div>
+    <div class="teaching-card" data-open-teaching="${idx}" style="--t-color: ${religion.color}">
+      <div class="teaching-card-top">
+        <div class="teaching-icon-badge">${t.icon}</div>
+        <span class="teaching-view-badge">Click to Open Study Window ➔</span>
+      </div>
+
+      <h4 class="teaching-title">${t.principle}</h4>
+      <div class="teaching-orig-term">${t.originalTerm || ''}</div>
+      <p class="teaching-sub">${t.subtitle}</p>
+      
+      <div class="teaching-action-prompt">
+        <span>📖 Read deep philosophical origin & real-life kids scenario</span>
       </div>
     </div>
   `).join('');
@@ -237,76 +302,80 @@ function renderTeachingsTab(religion) {
       <div class="section-header">
         <div>
           <h2><span>Core Pillars of ${religion.name}</span></h2>
-          <p>Tap any card below to flip and discover how to practice these virtues in everyday life!</p>
+          <p>Click on any pillar below to open the comprehensive learning window with real-life scenarios and daily practice missions.</p>
         </div>
       </div>
 
-      <div class="flipcards-grid">
+      <div class="teachings-grid">
         ${cardsHtml}
       </div>
 
       <div class="symbols-box">
-        <h4 style="font-size: 16px; margin-bottom: 8px;">Sacred Symbol Meaning: ${religion.symbol}</h4>
-        <p style="font-size: 13.5px; color: #475569; line-height: 1.6;">
-          The sacred symbol <strong>${religion.symbol}</strong> represents eternal harmony, the cycles of ethical duty, and the luminous search for truth and peace inside each human heart.
-        </p>
+        <div class="symbol-box-icon">${renderReligionSymbol(religion, 36)}</div>
+        <div>
+          <h4 style="font-size: 16px; margin-bottom: 6px; color: #0f172a;">Sacred Cultural Symbol Meaning</h4>
+          <p style="font-size: 13.5px; color: #475569; line-height: 1.6;">
+            The sacred emblem represents the continuous cycle of moral duty, peaceful truth, and universal kindness cherished across world civilizations.
+          </p>
+        </div>
       </div>
     </div>
   `;
 }
 
+/* =================================================================
+   4. MINDFUL CALM TAB (REAL CHIME AUDIO & BREATHING GUIDE)
+   ================================================================= */
 function renderCalmTab(religion) {
   const calm = religion.calm;
   return `
     <div class="tab-pane active">
       <div class="calm-zone-container">
         <h2 style="font-size: 26px; font-weight: 800; margin-bottom: 8px;">${calm.title}</h2>
-        <p style="color: #cbd5e1; max-width: 500px; margin: 0 auto;">
-          Take a deep peaceful breath. Watch the glowing sphere expand as you breathe in, and contract as you breathe out.
+        <p style="color: #cbd5e1; max-width: 520px; margin: 0 auto;">
+          Take a deep peaceful breath. Follow the glowing sphere: expand as you breathe in, hold gently, and contract as you breathe out.
         </p>
 
         <div class="calm-sphere-wrapper">
-          <div class="breathing-sphere">
+          <div class="breathing-sphere" id="calm-breathing-sphere">
             <span id="breathing-label">Breathe In...</span>
           </div>
         </div>
 
-        <div style="font-size: 16px; font-style: italic; color: #fde68a; margin: 18px 0;">
+        <div class="calm-affirmation-box">
           "${calm.affirmation}"
         </div>
 
         <button class="sound-chime-btn" id="btn-sound-chime" data-sound-type="${calm.chimeSound}">
-          <i data-lucide="bell" style="width: 18px; height: 18px;"></i>
-          <span>Play Single Chime Sound</span>
+          <i data-lucide="bell" style="width: 20px; height: 20px;"></i>
+          <span>Play Sacred Chime Bell Sound</span>
         </button>
       </div>
     </div>
   `;
 }
 
+/* =================================================================
+   5. EXAM & QUIZ TAB (FULL WORKING EXAM + INSTANT GRADING)
+   ================================================================= */
 function renderExamTab(religion, examResult) {
   const questions = religion.finalExam;
 
-  if (examResult) {
-    return `
-      <div class="tab-pane active">
-        <div class="exam-container">
-          <div class="result-card">
-            <div class="score-badge">${examResult.score}%</div>
-            <h3 style="font-size: 24px; color: #1e1b4b; margin-bottom: 8px;">Exam Passed with Grade ${examResult.grade}! 🏆</h3>
-            <p style="color: #64748b; max-width: 450px; margin: 0 auto 20px auto;">
-              Congratulations! You demonstrated a deep, compassionate understanding of the teachings of ${religion.name}.
-            </p>
-
-            <button class="submit-exam-btn" id="btn-view-certificate" data-religion-id="${religion.id}">
-              <i data-lucide="award" style="width: 18px; height: 18px;"></i>
-              <span>View Official Certificate of Wisdom</span>
-            </button>
-          </div>
+  const passedHeaderHtml = examResult ? `
+    <div class="exam-passed-summary-bar">
+      <div class="summary-left">
+        <span class="passed-trophy">🏆</span>
+        <div>
+          <strong>Official Honor Earned: Score ${examResult.score}% (Grade ${examResult.grade})</strong>
+          <p>You have demonstrated thoughtful understanding of ${religion.name}. You can retake the quiz anytime to practice!</p>
         </div>
       </div>
-    `;
-  }
+      <button class="view-cert-pill-btn" id="btn-view-certificate" data-religion-id="${religion.id}">
+        <i data-lucide="award" style="width: 16px; height: 16px;"></i>
+        <span>View Official Certificate</span>
+      </button>
+    </div>
+  ` : '';
 
   const questionsHtml = questions.map((q, qIdx) => `
     <div class="question-card" data-q-idx="${qIdx}">
@@ -314,11 +383,11 @@ function renderExamTab(religion, examResult) {
       <div class="q-text">${q.question}</div>
       <div class="options-grid">
         ${q.options.map((opt, optIdx) => `
-          <button class="opt-btn" data-q-idx="${qIdx}" data-opt-idx="${optIdx}">
-            <span style="width: 24px; height: 24px; border-radius: 50%; background: #e2e8f0; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;">
+          <button class="opt-btn" data-q-idx="${qIdx}" data-opt-idx="${optIdx}" type="button">
+            <span class="opt-letter">
               ${String.fromCharCode(65 + optIdx)}
             </span>
-            <span>${opt}</span>
+            <span class="opt-label">${opt}</span>
           </button>
         `).join('')}
       </div>
@@ -328,23 +397,25 @@ function renderExamTab(religion, examResult) {
   return `
     <div class="tab-pane active">
       <div class="exam-container">
+        ${passedHeaderHtml}
+
         <div class="exam-header">
           <div>
-            <h3 style="font-size: 20px; font-weight: 800; color: #0f172a;">Certification Exam: ${religion.name}</h3>
-            <p style="font-size: 13px; color: #64748b;">Answer all 5 questions to receive your official Certificate of Completion.</p>
+            <h3 style="font-size: 22px; font-weight: 800; color: #0f172a;">Certification Exam: ${religion.name}</h3>
+            <p style="font-size: 13.5px; color: #64748b;">Answer all 5 questions to receive your official Certificate of Wisdom.</p>
           </div>
-          <div style="font-size: 13px; font-weight: 700; color: var(--primary); background: #eef2ff; padding: 6px 14px; border-radius: var(--radius-pill);">
-            Pass Mark: 80%
+          <div class="pass-mark-chip">
+            Passing Grade: 80%
           </div>
         </div>
 
         <form id="exam-form" data-religion-id="${religion.id}">
           ${questionsHtml}
           
-          <div style="margin-top: 28px; text-align: center;">
+          <div style="margin-top: 32px; text-align: center;">
             <button type="submit" class="submit-exam-btn">
               <i data-lucide="send" style="width: 18px; height: 18px;"></i>
-              <span>Submit Exam & Get Certificate (+50 Stars)</span>
+              <span>Submit Answers & Generate Certificate (+50 Stars)</span>
             </button>
           </div>
         </form>

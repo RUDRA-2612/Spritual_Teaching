@@ -20,7 +20,7 @@ export function openCertificateModal(religionId) {
 
         <div style="font-size: 32px; margin-bottom: 4px;">🏆</div>
         <div class="cert-title">Certificate of Wisdom & Ethics</div>
-        <div class="cert-sub">Universal Spiritual Academy • Global Character Honors</div>
+        <div class="cert-sub">OmniWisdom Academy • Global Character Honors</div>
 
         <p style="font-size: 13.5px; color: #78350f; margin-bottom: 12px;">This is proudly presented to</p>
 

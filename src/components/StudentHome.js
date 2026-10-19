@@ -1,4 +1,4 @@
-import { RELIGIONS_DATA, DAILY_QUOTES } from '../data.js';
+import { RELIGIONS_DATA, DAILY_QUOTES, ACADEMY_INFO } from '../data.js';
 import { appState } from '../state.js';
 import { renderReligionSymbol } from '../utils/symbolHelper.js';
 
@@ -11,13 +11,13 @@ export function renderStudentHome() {
 
     return `
       <div class="religion-card" data-religion-id="${religion.id}" style="--card-glow: ${religion.glowColor}; --religion-color: ${religion.color}">
-        <!-- Card Header with Religion Artwork & Subtle Gradient -->
+        <!-- Card Header with Subtle Themed Artwork Banner -->
         <div class="card-header-art">
           <img src="${religion.artImage}" class="art-bg-img" alt="${religion.name}" />
           <div class="card-symbol-badge ${religion.id === 'sikhism' ? 'sikh-badge' : ''}">${symbolHtml}</div>
           <div class="card-title-meta">
             <div class="card-faith-name">${religion.name}</div>
-            <div class="card-faith-sub">${religion.hindiName}</div>
+            <div class="card-faith-sub">${religion.subname}</div>
           </div>
         </div>
         
@@ -30,9 +30,9 @@ export function renderStudentHome() {
 
           <div class="progress-container">
             <div class="progress-info">
-              <span class="progress-title">Learning Journey</span>
-              <span class="progress-num-badge" style="color: ${religion.color}; background: ${religion.glowColor.replace('0.4', '0.12')}">
-                ${completedCount}/${totalCount} Completed (${percent}%)
+              <span class="progress-title">Course Progress</span>
+              <span class="progress-num-badge" style="color: ${religion.color}; background: ${religion.glowColor.replace('0.45', '0.12')}">
+                ${completedCount} / ${totalCount} Lectures (${percent}%)
               </span>
             </div>
             <div class="progress-track">
@@ -41,7 +41,7 @@ export function renderStudentHome() {
           </div>
 
           <button class="card-action-btn" data-enter-religion="${religion.id}" style="--btn-color: ${religion.color}">
-            <span>Enter Wisdom Realm</span>
+            <span>Enter ${religion.name} Realm</span>
             <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
           </button>
         </div>
@@ -51,27 +51,22 @@ export function renderStudentHome() {
 
   return `
     <div class="main-content">
-      <!-- Upgraded Hero Banner with Refined Lines & Clean Typography -->
+      <!-- Clean, Elegant English Hero Banner -->
       <div class="hero-banner">
         <div class="hero-text">
           <div class="hero-badge">
             <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
-            <span>ज्ञान मूल • Roots of Wisdom Academy</span>
+            <span>${ACADEMY_INFO.name} • Global Multi-Faith Academy</span>
           </div>
-          <h2 class="hero-title">
-            Where Every Faith Inspires Kindness, Truth & Universal Peace ✨
-          </h2>
-          <div class="hero-hindi-tagline">
-            जहाँ हर धर्म सिखाये करुणा, सेवा और प्रेम का पावन मार्ग
-          </div>
+          <h2 class="hero-title">${ACADEMY_INFO.name}</h2>
           <p class="hero-subtitle">
-            A joyful sanctuary for children to explore the golden heart of humanity. Listen to authentic mantras & chants, watch inspiring moral lessons, practice calming mindfulness, and earn multi-faith certificates.
+            ${ACADEMY_INFO.tagline}. Discover the golden thread of world wisdom through authentic audio chants, animated moral stories, and character certifications.
           </p>
 
           <div class="daily-quote-box">
             <div class="quote-header">
               <span class="quote-icon">🕊️</span>
-              <span class="quote-title">Universal Daily Reflection</span>
+              <span class="quote-title">Daily Reflection</span>
             </div>
             <div class="quote-body">
               "${quote.quote}"
@@ -87,7 +82,7 @@ export function renderStudentHome() {
           <h2>
             <span>Explore World Wisdom Realms</span>
           </h2>
-          <p>Choose any sacred path below to listen to authentic chants, watch video parables, and complete interactive lessons.</p>
+          <p>Select any tradition below to listen to authentic chants, watch video lectures, read moral stories, and earn certificates.</p>
         </div>
       </div>
 

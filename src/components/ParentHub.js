@@ -1,23 +1,26 @@
 import { RELIGIONS_DATA } from '../data.js';
 import { appState } from '../state.js';
+import { renderReligionSymbol } from '../utils/symbolHelper.js';
 
 export function renderParentHub(religionId) {
   const religion = RELIGIONS_DATA.find(r => r.id === religionId);
   if (!religion) return `<div>Religion not found</div>`;
 
   const { percent, completedCount, totalCount } = appState.getReligionProgress(religion.id);
-  const examResult = appState.progress.examScores[religion.id] || {
-    score: religion.parentMetrics.examScore,
-    grade: religion.parentMetrics.grade,
-    date: 'Recent'
-  };
+  const examResult = appState.progress.examScores[religion.id];
 
-  const metrics = religion.parentMetrics;
+  const weeklyDays = [
+    { day: 'Mon', mins: 25 },
+    { day: 'Tue', mins: 30 },
+    { day: 'Wed', mins: 20 },
+    { day: 'Thu', mins: 35 },
+    { day: 'Fri', mins: 15 },
+    { day: 'Sat', mins: 40 },
+    { day: 'Sun', mins: 20 }
+  ];
 
-  // Max minutes for scaling bars
-  const maxMins = Math.max(...metrics.weeklyDays.map(d => d.mins), 45);
-
-  const barsHtml = metrics.weeklyDays.map(d => {
+  const maxMins = 45;
+  const barsHtml = weeklyDays.map(d => {
     const heightPercent = Math.round((d.mins / maxMins) * 100);
     const isToday = d.day === 'Sat' || d.day === 'Sun';
 
@@ -47,7 +50,7 @@ export function renderParentHub(religionId) {
           }
         </td>
         <td style="font-size: 12px; color: #64748b;">
-          ${isDone ? 'Recorded in Session' : 'Not yet started'}
+          ${isDone ? 'Completed in study session' : 'Not yet completed'}
         </td>
       </tr>
     `;
@@ -59,128 +62,110 @@ export function renderParentHub(religionId) {
       <div class="hub-header-bar">
         <button class="back-btn" id="btn-back-to-parent-home">
           <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
-          <span>Back to All Courses</span>
+          <span>Back to Parent Dashboard</span>
         </button>
 
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <span style="font-size: 12.5px; font-weight: 700; color: #475569;">Viewing Record for:</span>
-          <span style="background: #e0f2fe; color: #0369a1; font-weight: 800; font-size: 12px; padding: 4px 10px; border-radius: var(--radius-pill);">
-            ${appState.activeChild === 'aarav' ? 'Aarav Sharma' : 'Ananya Sharma'}
-          </span>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="stat-chip stars">⭐ ${appState.progress.stars} Stars</span>
         </div>
       </div>
 
-      <!-- Hero Summary Banner -->
-      <div class="hub-hero" style="background: ${religion.bgGradient}">
+      <!-- Report Header Banner -->
+      <div class="hub-hero" style="background: ${religion.bgGradient}; --hub-art-bg: url('${religion.artImage}')">
         <div class="hub-hero-info">
           <h2>
-            <span>${religion.symbol}</span>
-            <span>${religion.name} • Child Progress Report</span>
+            <span class="hub-hero-symbol">${renderReligionSymbol(religion, 36)}</span>
+            <span>${religion.name} • Learning Report</span>
           </h2>
-          <p>
-            Detailed attendance verification, weekly engagement hours, and certification exam performance.
+          <p style="color: #f1f5f9; font-size: 14.5px;">
+            Detailed curriculum attendance, quiz scores, and family discussion prompts for ${appState.activeChild === 'aarav' ? 'Aarav' : 'Ananya'}.
           </p>
         </div>
 
-        <div style="background: rgba(255,255,255,0.18); backdrop-filter: blur(8px); padding: 14px 22px; border-radius: 12px; text-align: center;">
-          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Overall Score</div>
-          <div style="font-size: 26px; font-weight: 800;">${examResult.score}%</div>
-          <div style="font-size: 12px; font-weight: 700; color: #fde68a;">Grade ${examResult.grade}</div>
+        <div class="hub-hero-stat">
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Attendance</div>
+          <div style="font-size: 28px; font-weight: 800;">${percent}%</div>
+          <div style="font-size: 11px; opacity: 0.9;">${completedCount}/${totalCount} Lectures Completed</div>
         </div>
       </div>
 
-      <!-- Grid 2 Columns: Weekly Chart & Exam Card -->
-      <div class="grid-2">
-        <!-- 1. Weekly Learning Chart -->
-        <div class="chart-card">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 800; color: #0f172a;">
-              📊 Weekly Study Activity (${religion.name})
-            </h3>
-            <span style="font-size: 12px; font-weight: 700; color: #0284c7; background: #f0f9ff; padding: 4px 10px; border-radius: 999px;">
-              Total: ${metrics.weeklyHours} hrs
-            </span>
+      <!-- Main Two Column Grid -->
+      <div class="parent-grid">
+        <!-- Left: Attendance & Screen Time Chart -->
+        <div class="parent-card-box">
+          <div class="parent-box-header">
+            <h3>📈 Weekly Study Screen Time (Minutes / Day)</h3>
+            <span style="font-size: 12px; font-weight: 700; color: #0284c7;">Total: 2.8 hrs this week</span>
           </div>
-          <p style="font-size: 12.5px; color: #64748b; margin-top: 4px;">Daily study minutes spent watching lectures and reading stories.</p>
-
-          <div class="bar-chart-container">
+          
+          <div class="chart-container">
             ${barsHtml}
-          </div>
-        </div>
-
-        <!-- 2. Exam & Assessment Scorecard -->
-        <div class="chart-card">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 800; color: #0f172a;">
-              🏆 Formal Certification Exam
-            </h3>
-            <span style="font-size: 12px; font-weight: 700; color: #16a34a; background: #f0fdf4; padding: 4px 10px; border-radius: 999px;">
-              Passed
-            </span>
-          </div>
-          <p style="font-size: 12.5px; color: #64748b; margin-top: 4px;">Comprehensive evaluation of moral principles and story understanding.</p>
-
-          <div style="margin-top: 20px; display: flex; align-items: center; gap: 20px;">
-            <div style="width: 75px; height: 75px; border-radius: 50%; background: #ecfdf5; border: 3px solid #10b981; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-              <span style="font-size: 20px; font-weight: 800; color: #065f46;">${examResult.score}%</span>
-              <span style="font-size: 10px; font-weight: 700; color: #047857;">Grade ${examResult.grade}</span>
-            </div>
-
-            <div style="flex: 1;">
-              <div style="font-size: 13.5px; font-weight: 700; color: #1e293b; margin-bottom: 4px;">
-                Demonstrated Strengths
-              </div>
-              <p style="font-size: 12.5px; color: #475569; line-height: 1.4;">
-                Exceptional grasp of compassion, empathy in moral dilemma scenarios, and historical parables.
-              </p>
-            </div>
           </div>
 
           <div style="margin-top: 24px;">
-            <button class="card-action-btn" id="btn-parent-view-cert" data-religion-id="${religion.id}" style="background: #f8fafc; color: #334155;">
-              <i data-lucide="award" style="width: 16px; height: 16px; color: #d97706;"></i>
-              <span>View Child's Official Certificate of Wisdom</span>
-            </button>
+            <h4 style="font-size: 15px; margin-bottom: 12px; color: #1e293b;">Lecture Attendance Details</h4>
+            <div style="overflow-x: auto;">
+              <table class="attendance-table">
+                <thead>
+                  <tr>
+                    <th>Lec</th>
+                    <th>Lesson Title</th>
+                    <th>Status</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${attendanceRows}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- 3. Lecture Attendance Verification Table -->
-      <div class="chart-card">
-        <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">
-          🎥 Lecture Attendance Checklist (${completedCount} of ${totalCount} Completed - ${percent}%)
-        </h3>
-        <p style="font-size: 12.5px; color: #64748b;">
-          System auto-verifies attendance once the child watches at least 90% of the video lesson.
-        </p>
+        <!-- Right: Family Dinner Discussion & Values -->
+        <div>
+          <!-- Dinner Table Discussion Card -->
+          <div class="dinner-prompt-card">
+            <div class="dinner-badge">
+              <span>🍽️ Tonight's Family Dinner Discussion</span>
+            </div>
+            <h4>Conversation Prompt on ${religion.name}:</h4>
+            <p class="dinner-quote">
+              "${religion.teachings[0]?.deepDive?.dinnerQuestion || 'How can our family practice kindness and understanding together this week?'}"
+            </p>
+            <div class="dinner-tip">
+              💡 <strong>Parent Tip:</strong> Ask open-ended questions and encourage your child to connect stories to their everyday school experience.
+            </div>
+          </div>
 
-        <table class="attendance-table">
-          <thead>
-            <tr>
-              <th style="width: 60px;">#</th>
-              <th>Lecture Title & Duration</th>
-              <th>Attendance Status</th>
-              <th>Session Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${attendanceRows}
-          </tbody>
-        </table>
-      </div>
+          <!-- Official Certificate Card -->
+          <div class="cert-status-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div>
+                <h4 style="font-size: 16px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">Certificate of Wisdom</h4>
+                <p style="font-size: 13px; color: #64748b;">Official completion honor</p>
+              </div>
+              <div style="font-size: 28px;">🏆</div>
+            </div>
 
-      <!-- 4. Dinner Table Conversation Prompts -->
-      <div class="prompt-card">
-        <h4>
-          <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i>
-          <span>Tonight's Family Dinner Discussion Prompt</span>
-        </h4>
-        <p>${metrics.dinnerPrompt}</p>
-        <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px;">
-          <input type="checkbox" id="prompt-check" style="cursor: pointer; width: 16px; height: 16px;" />
-          <label for="prompt-check" style="font-size: 12.5px; color: #86198f; font-weight: 600; cursor: pointer;">
-            Mark as discussed with my child
-          </label>
+            <div style="margin: 16px 0;">
+              ${examResult ? `
+                <div style="font-size: 14px; font-weight: 700; color: #059669; margin-bottom: 6px;">
+                  ✓ Exam Passed with Score: ${examResult.score}% (Grade ${examResult.grade})
+                </div>
+                <button class="card-action-btn" id="btn-parent-view-cert" data-religion-id="${religion.id}" style="background: var(--primary); color: #fff;">
+                  View & Print Official Certificate
+                </button>
+              ` : `
+                <div style="font-size: 13px; color: #64748b; margin-bottom: 8px;">
+                  Exam not yet completed by student.
+                </div>
+                <div style="font-size: 12px; color: #0284c7; font-weight: 700;">
+                  Student can take the certification exam in the Student Portal!
+                </div>
+              `}
+            </div>
+          </div>
         </div>
       </div>
     </div>
