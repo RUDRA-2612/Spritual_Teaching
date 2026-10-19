@@ -11,7 +11,7 @@ export function openCertificateModal(religionId) {
     date: 'October 2026'
   };
 
-  const childName = appState.activeChild === 'aarav' ? 'Aarav Sharma' : 'Ananya Sharma';
+  const childName = appState.activeChild === 'rudra' ? 'Rudra' : 'Ananya';
 
   const modalHtml = `
     <div class="modal-overlay" id="cert-modal-overlay">

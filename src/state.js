@@ -7,7 +7,7 @@ class AppState {
     this.currentRole = 'student'; // 'student' | 'parent'
     this.selectedReligionId = null; // null = home, string = realm hub
     this.activeHubTab = 'lectures'; // 'lectures' | 'stories' | 'teachings' | 'calm' | 'exam'
-    this.activeChild = 'aarav'; // 'aarav' | 'ananya'
+    this.activeChild = 'rudra'; // 'rudra' | 'ananya'
     this.soundEnabled = true;
 
     // Active sub-item states
@@ -134,7 +134,7 @@ class AppState {
     this.activeLectureId = stateObj.activeLectureId ?? null;
     this.activeStoryId = stateObj.activeStoryId ?? null;
     this.activeTeachingModal = stateObj.activeTeachingModal ?? null;
-    this.activeChild = stateObj.activeChild ?? 'aarav';
+    this.activeChild = stateObj.activeChild ?? 'rudra';
     this.navDrawerOpen = false;
     this.profileModalOpen = false;
 

@@ -78,7 +78,7 @@ export function renderParentHub(religionId) {
             <span>${religion.name} • Learning Report</span>
           </h2>
           <p style="color: #f1f5f9; font-size: 14.5px;">
-            Detailed curriculum attendance, quiz scores, and family discussion prompts for ${appState.activeChild === 'aarav' ? 'Aarav' : 'Ananya'}.
+            Detailed curriculum attendance, quiz scores, and family discussion prompts for ${appState.activeChild === 'rudra' ? 'Rudra' : 'Ananya'}.
           </p>
         </div>
 

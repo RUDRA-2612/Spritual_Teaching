@@ -67,7 +67,7 @@ function renderApp() {
         <div class="profile-badge-pill" id="btn-profile-badge">
           <div class="profile-avatar">${appState.currentRole === 'parent' ? '🛡️' : '🎒'}</div>
           <div class="profile-text">
-            <span class="user-name">${appState.currentRole === 'parent' ? 'Parent & Educator' : 'Aarav Sharma'}</span>
+            <span class="user-name">${appState.currentRole === 'parent' ? 'Parent & Educator' : 'Rudra'}</span>
             <span class="user-role">${appState.currentRole === 'parent' ? 'Admin Portal' : 'Young Scholar • ⭐ ' + appState.progress.stars}</span>
           </div>
         </div>

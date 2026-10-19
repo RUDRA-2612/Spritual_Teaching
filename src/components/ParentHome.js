@@ -67,7 +67,7 @@ export function renderParentHome() {
         <div style="display: flex; align-items: center; gap: 10px; background: #ffffff; padding: 6px 14px; border-radius: var(--radius-pill); border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm);">
           <span style="font-size: 12px; font-weight: 700; color: #64748b;">Active Child:</span>
           <select id="child-selector" style="border: none; background: transparent; font-family: var(--font-display); font-size: 13.5px; font-weight: 800; color: #0369a1; cursor: pointer; outline: none;">
-            <option value="aarav" ${appState.activeChild === 'aarav' ? 'selected' : ''}>Aarav Sharma (Age 8 • Grade 3)</option>
+            <option value="rudra" ${appState.activeChild === 'rudra' ? 'selected' : ''}>Rudra (Age 8 • Grade 3)</option>
             <option value="ananya" ${appState.activeChild === 'ananya' ? 'selected' : ''}>Ananya Sharma (Age 11 • Grade 6)</option>
           </select>
         </div>
