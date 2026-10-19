@@ -71,21 +71,16 @@ class AppState {
   // ==========================================
   // HISTORY API & ROUTING (TOUCHPAD BACK SUPPORT)
   // ==========================================
+  // ==========================================
+  // HISTORY API & ROUTING (TOUCHPAD BACK SUPPORT)
+  // ==========================================
   setupHistoryListener() {
     window.addEventListener('popstate', (e) => {
-      if (e.state) {
+      // Only process popstate if there is actual history state from our application
+      if (e.state && typeof e.state.isLoggedIn === 'boolean') {
         this.applyStateFromHistory(e.state);
-      } else {
-        this.applyStateFromHistory({
-          isLoggedIn: this.isLoggedIn,
-          currentRole: this.currentRole,
-          selectedReligionId: null,
-          activeHubTab: 'lectures',
-          activeLectureId: null,
-          activeStoryId: null,
-          activeTeachingModal: null
-        });
       }
+      // Never auto-back or reset state if e.state is null
     });
 
     // Initial state replace
@@ -110,7 +105,7 @@ class AppState {
     } else if (this.currentRole === 'parent') {
       hash = this.selectedReligionId ? `#/parent/${this.selectedReligionId}` : '#/parent';
     } else if (this.selectedReligionId) {
-      hash = `#/realm/${this.selectedReligionId}/${this.activeHubTab}`;
+      hash = `#/realm/${this.selectedReligionId}`;
     }
 
     try {
@@ -125,10 +120,11 @@ class AppState {
   }
 
   applyStateFromHistory(stateObj) {
-    if (!stateObj) return;
-    this.isLoggedIn = stateObj.isLoggedIn ?? true;
+    if (!stateObj || typeof stateObj.isLoggedIn !== 'boolean') return;
+    this.isLoggedIn = stateObj.isLoggedIn;
     this.currentRole = stateObj.currentRole ?? 'student';
 
+    // Only stop audio if religion changed or returned to home
     if (this.selectedReligionId !== stateObj.selectedReligionId) {
       this.stopAmbientChant();
     }
@@ -184,10 +180,11 @@ class AppState {
     this.activeTeachingModal = null;
     this.navDrawerOpen = false;
 
-    // Start authentic chant
+    // Start authentic long audio
     this.startAmbientChant(religionId);
 
-    this.pushState();
+    // Push new history state so touchpad back can return to Home
+    this.pushState(false);
     this.notify();
   }
 
@@ -196,38 +193,39 @@ class AppState {
     this.activeTeachingModal = null;
     this.navDrawerOpen = false;
     this.stopAmbientChant();
-    this.pushState();
+    this.pushState(false);
     this.notify();
   }
 
   setHubTab(tabName) {
     this.activeHubTab = tabName;
-    this.pushState();
+    // Replace state so sub-tabs don't clutter back history
+    this.pushState(true);
     this.notify();
   }
 
   setActiveLecture(lectureId) {
     this.activeLectureId = lectureId;
-    this.pushState();
+    this.pushState(true);
     this.notify();
   }
 
   setActiveStory(storyId) {
     this.activeStoryId = storyId;
-    this.pushState();
+    this.pushState(true);
     this.notify();
   }
 
   openTeachingModal(religionId, index) {
     this.activeTeachingModal = { religionId, index };
-    this.pushState();
+    this.pushState(true);
     this.notify();
     this.playChime('harp');
   }
 
   closeTeachingModal() {
     this.activeTeachingModal = null;
-    this.pushState();
+    this.pushState(true);
     this.notify();
   }
 
@@ -398,13 +396,17 @@ class AppState {
   toggleAmbientChant(religionId) {
     if (this.ambientChantPlaying && this.currentChantReligionId === religionId) {
       this.stopAmbientChant();
-      this.notify();
+      this.updateChantButtonUI();
     } else {
       this.startAmbientChant(religionId);
     }
   }
 
   startAmbientChant(religionId) {
+    if (this.currentAudio && this.currentChantReligionId === religionId && this.ambientChantPlaying) {
+      return; // Already playing smoothly!
+    }
+
     this.stopAmbientChant();
     const religion = RELIGIONS_DATA.find(r => r.id === religionId);
     if (!religion || !religion.ambientChant?.audioSrc) return;
@@ -420,24 +422,61 @@ class AppState {
       audio.addEventListener('error', (e) => {
         console.warn('Audio playback error', e);
         this.ambientChantPlaying = false;
-        this.notify();
+        this.updateChantButtonUI();
       });
 
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
           this.ambientChantPlaying = true;
-          this.notify();
+          this.updateChantButtonUI();
         }).catch(err => {
           console.warn('Audio play prevented or interaction needed:', err);
           this.ambientChantPlaying = false;
-          this.notify();
+          this.updateChantButtonUI();
         });
       }
     } catch (err) {
       console.warn('Error starting audio chant:', err);
       this.ambientChantPlaying = false;
-      this.notify();
+      this.updateChantButtonUI();
+    }
+  }
+
+  updateChantButtonUI() {
+    const btn = document.getElementById('btn-ambient-chant-toggle');
+    if (!btn) return;
+    const religion = RELIGIONS_DATA.find(r => r.id === this.selectedReligionId);
+    if (!religion) return;
+
+    if (this.ambientChantPlaying) {
+      btn.classList.add('playing');
+      btn.title = 'Click to Pause Sacred Audio';
+      btn.innerHTML = `
+        <div class="equalizer-anim">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+        <div class="chant-btn-text">
+          <span class="chant-btn-title">🔊 Playing: ${religion.ambientChant.name}</span>
+          <span class="chant-btn-sub">Click to Pause Audio</span>
+        </div>
+      `;
+    } else {
+      btn.classList.remove('playing');
+      btn.title = 'Click to Play Sacred Audio';
+      btn.innerHTML = `
+        <div class="chant-play-icon" style="background: ${religion.color}">
+          <i data-lucide="volume-2" style="width: 16px; height: 16px; color: #fff;"></i>
+        </div>
+        <div class="chant-btn-text">
+          <span class="chant-btn-title">▶️ Play Sacred Audio</span>
+          <span class="chant-track-sub">${religion.ambientChant.name}</span>
+        </div>
+      `;
+      if (window.lucide) window.lucide.createIcons();
     }
   }
 
@@ -451,6 +490,7 @@ class AppState {
     }
     this.ambientChantPlaying = false;
     this.currentChantReligionId = null;
+    this.updateChantButtonUI();
   }
 
   getReligionProgress(religionId) {

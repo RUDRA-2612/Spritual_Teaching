@@ -176,14 +176,14 @@ function attachMainListeners() {
     if (appState.soundEnabled) appState.playChime('singingBowl');
   });
 
-  // Back button in Student Hub (uses History back for seamless touchpad/browser back sync)
+  // Back button in Student Hub
   document.getElementById('btn-back-to-realms')?.addEventListener('click', () => {
-    window.history.back();
+    appState.clearSelectedReligion();
   });
 
   // Back button in Parent Hub
   document.getElementById('btn-back-to-parent-home')?.addEventListener('click', () => {
-    window.history.back();
+    appState.clearSelectedReligion();
   });
 
   // Top-Right Authentic Audio Chant Button

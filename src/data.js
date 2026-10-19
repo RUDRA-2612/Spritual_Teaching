@@ -18,9 +18,9 @@ export const RELIGIONS_DATA = [
     summary: 'Teachings of Gautam Buddha focusing on peaceful living, mindfulness, compassion towards all creatures, and inner stillness.',
     virtues: ['Compassion (Karuna)', 'Mindfulness (Sati)', 'Inner Peace', 'Gentleness to Nature'],
     ambientChant: {
-      name: 'Om Mani Padme Hum & Singing Bowls',
+      name: 'Om Mani Padme Hum (Sacred Meditation)',
       audioSrc: '/assets/audio/buddhism_chant.mp3',
-      description: 'Authentic Buddhist Om Mani Padme Hum chant with peaceful Tibetan singing bowls.'
+      description: 'Long continuous Tibetan Buddhist peace chant with resonant singing bowls (~10 mins).'
     },
     lectures: [
       {
@@ -215,9 +215,9 @@ The Buddha smiled: "Just so. I do not accept your harsh words. They remain with 
     summary: 'One of the world\'s oldest spiritual traditions emphasizing Dharma (righteous living), Karma (law of deeds), and Seva (selfless service).',
     virtues: ['Dharma (Duty & Righteousness)', 'Karma (Law of Cause & Effect)', 'Ahimsa (Non-violence)', 'Seva (Selfless Service)'],
     ambientChant: {
-      name: 'Gayatri Mantra Sacred Chanting',
+      name: 'Shree Hanuman Chalisa (Sacred Stuti)',
       audioSrc: '/assets/audio/hinduism_chant.mp3',
-      description: 'Authentic recitation of Gayatri Mantra with cosmic Tanpura drone and Vedic resonance.'
+      description: 'Complete sacred recitation of Shree Hanuman Chalisa celebrating devotion, courage, and selfless service (~12 mins).'
     },
     lectures: [
       {
@@ -414,9 +414,9 @@ Nachiketa smiled: "Wealth passes away like water through fingers. Teach me inste
     summary: 'Founded by Guru Nanak Dev Ji, teaching absolute equality of all human beings, honest living (Kirat Karo), and sharing blessings (Vand Chhako).',
     virtues: ['Universal Equality', 'Vand Chhako (Sharing)', 'Kirat Karo (Honest Living)', 'Naam Japna (Remembrance)'],
     ambientChant: {
-      name: 'Gurbani Kirtan & Mool Mantar',
+      name: 'Peaceful Waheguru Simran & Gurbani',
       audioSrc: '/assets/audio/sikhism_chant.mp3',
-      description: 'Authentic Gurbani recitation with celestial harmonium and peaceful Dilruba resonance.'
+      description: 'Long continuous peaceful Waheguru meditation and divine Gurbani Kirtan (~12 mins).'
     },
     lectures: [
       {
@@ -615,9 +615,9 @@ The scholars understood the lesson immediately: Guru Nanak did not come to push 
     summary: 'Teachings of Jesus Christ focusing on unconditional love (Agape), forgiving others from the heart, and living by the Golden Rule.',
     virtues: ['Unconditional Love (Agape)', 'Forgiveness of Heart', 'The Golden Rule', 'Peacemaking'],
     ambientChant: {
-      name: 'Cathedral Choir & Gregorian Chant',
+      name: 'Gregorian Vespers & Cathedral Choir',
       audioSrc: '/assets/audio/christianity_chant.mp3',
-      description: 'Authentic reverent Gregorian Latin chant (Veni Creator Spiritus) with cathedral choir harmony.'
+      description: 'Authentic Benedictine monastery Latin Gregorian chants and cathedral choir hymns (~25 mins).'
     },
     lectures: [
       {
@@ -810,9 +810,9 @@ Francis made a pact between the wolf and the villagers: the people fed the wolf 
     summary: 'Teachings emphasizing peace (Salaam), compassion to creation (Rahmah), everyday charity (Sadqah), and absolute honesty (Amanah).',
     virtues: ['Peace (Salaam)', 'Charity (Sadqah & Zakat)', 'Trustworthiness (Amanah)', 'Kindness to Nature'],
     ambientChant: {
-      name: 'Surah Al-Fatiha Sacred Tilawat',
+      name: 'Surah Ar-Rahman (The Most Merciful)',
       audioSrc: '/assets/audio/islam_chant.mp3',
-      description: 'Authentic melodic recitation of Surah Al-Fatiha with peaceful desert Ney ambiance.'
+      description: 'Long soul-soothing melodic recitation of Surah Ar-Rahman praising divine mercy and creation (~12 mins).'
     },
     lectures: [
       {
@@ -1009,9 +1009,9 @@ The Prophet said with gentle firmness: "Why did you not keep the damp wheat on t
     summary: 'Teachings of Bhagwan Mahavira emphasizing supreme Ahimsa (non-violence to all life forms), Aparigraha (non-greed), and multi-sided truth (Anekantavada).',
     virtues: ['Ahimsa Paramo Dharma', 'Reverence for All Life', 'Aparigraha (Simplicity)', 'Forgiveness (Micchami Dukkadam)'],
     ambientChant: {
-      name: 'Namokar (Navkar) Mahamantra',
+      name: 'Shree Bhaktamar Stotra & Navkar Jaap',
       audioSrc: '/assets/audio/jainism_chant.mp3',
-      description: 'Authentic chanting of sacred Navkar Mantra (Namo Arihantanam) with temple bells.'
+      description: 'Complete continuous traditional Bhaktamar Stotra and universal Namokar reverence (~72 mins).'
     },
     lectures: [
       {
@@ -1211,9 +1211,9 @@ The sixth, the wisest friend, smiled: "Look, there are already plenty of sweet, 
     summary: 'Ancient wisdom tradition emphasizing Tikkun Olam (repairing and healing the world), Tzedakah (righteous giving), and family gratitude on Shabbat.',
     virtues: ['Tikkun Olam (Heal the World)', 'Tzedakah (Justice & Giving)', 'Shabbat (Day of Rest)', 'Love of Learning'],
     ambientChant: {
-      name: 'Shalom Aleichem Choral Peace Hymn',
+      name: 'Chassidic Nigun & Shalom Medley',
       audioSrc: '/assets/audio/judaism_chant.mp3',
-      description: 'Authentic warm choral singing of Shalom Aleichem with sacred harp harmonies.'
+      description: 'Long continuous instrumental Chassidic Nigunim, uplifting Israeli folk medleys, and Shalom harmonies (~17 mins).'
     },
     lectures: [
       {
