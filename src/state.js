@@ -77,15 +77,21 @@ class AppState {
   // ==========================================
   setupHistoryListener() {
     window.addEventListener('popstate', (e) => {
-      // If user recently navigated into a realm (< 1200ms ago), ignore phantom popstate!
-      if (this.selectedReligionId !== null && (Date.now() - this.lastNavigationTime < 1200)) {
-        this.pushState(true);
-        return;
-      }
-
-      // Only process popstate if there is actual history state from our application
+      // Whenever user swipes back on touchpad or clicks browser back
       if (e.state && typeof e.state.isLoggedIn === 'boolean') {
         this.applyStateFromHistory(e.state);
+      } else {
+        // Fallback for root history entry: navigate back to Home
+        this.applyStateFromHistory({
+          isLoggedIn: true,
+          currentRole: this.currentRole,
+          selectedReligionId: null,
+          activeHubTab: 'lectures',
+          activeLectureId: null,
+          activeStoryId: null,
+          activeTeachingModal: null,
+          activeChild: this.activeChild
+        });
       }
     });
 
@@ -126,15 +132,9 @@ class AppState {
   }
 
   applyStateFromHistory(stateObj) {
-    if (!stateObj || typeof stateObj.isLoggedIn !== 'boolean') return;
+    if (!stateObj) return;
 
-    // Reject premature history bounce to home if navigated recently
-    if (this.selectedReligionId !== null && stateObj.selectedReligionId === null && (Date.now() - this.lastNavigationTime < 1200)) {
-      this.pushState(true);
-      return;
-    }
-
-    this.isLoggedIn = stateObj.isLoggedIn;
+    this.isLoggedIn = stateObj.isLoggedIn ?? true;
     this.currentRole = stateObj.currentRole ?? 'student';
 
     // Only stop audio if religion changed or returned to home
@@ -203,10 +203,6 @@ class AppState {
   }
 
   clearSelectedReligion() {
-    // If entered religion less than 600ms ago, ignore accidental rapid click bounce
-    if (Date.now() - this.lastNavigationTime < 600) return;
-    this.lastNavigationTime = Date.now();
-
     this.selectedReligionId = null;
     this.activeTeachingModal = null;
     this.navDrawerOpen = false;
