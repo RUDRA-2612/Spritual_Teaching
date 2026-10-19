@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Universal Spiritual Academy - Master Project Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
+  @page {
+    size: A4;
+    margin: 14mm 14mm 14mm 14mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
+    background: #ffffff;
+    line-height: 1.55;
+    font-size: 13px;
+  }
+
+  .cover-header {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+    color: #ffffff;
+    padding: 26px 30px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .tagline {
+    font-size: 13.5px;
+    color: #e0e7ff;
+    font-weight: 400;
+    max-width: 620px;
+  }
+
+  .meta-bar {
+    display: flex;
+    gap: 20px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 11.5px;
+    color: #c7d2fe;
+  }
+
+  .meta-item strong {
+    color: #ffffff;
+  }
+
+  .section {
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1e1b4b;
+    border-bottom: 2px solid #e0e7ff;
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  h3 {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 10px 0 6px 0;
+  }
+
+  p {
+    margin-bottom: 8px;
+    color: #334155;
+  }
+
+  .diagram-container {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px;
+    margin: 12px 0 16px 0;
+    text-align: center;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+
+  .card-student {
+    border-top: 3.5px solid #6366f1;
+    background: #faf5ff;
+  }
+
+  .card-parent {
+    border-top: 3.5px solid #0ea5e9;
+    background: #f0f9ff;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .card-student .card-title { color: #581c87; }
+  .card-parent .card-title { color: #0369a1; }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 6px;
+    color: #334155;
+  }
+
+  li::before {
+    content: "•";
+    position: absolute;
+    left: 4px;
+    color: #6366f1;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .card-parent li::before {
+    color: #0ea5e9;
+  }
+
+  .module-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .module-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 9px 12px;
+  }
+
+  .module-item strong {
+    display: block;
+    font-size: 12.5px;
+    color: #0f172a;
+    margin-bottom: 2px;
+  }
+
+  .module-item span {
+    font-size: 11.5px;
+    color: #475569;
+    line-height: 1.4;
+  }
+
+  .religions-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 8px 0 14px 0;
+  }
+
+  .chip {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  th {
+    background: #f1f5f9;
+    color: #334155;
+    font-weight: 700;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 24px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Cover Header -->
+  <div class="cover-header">
+    <div class="badge">Comprehensive Project Master Plan</div>
+    <h1>Universal Spiritual Academy</h1>
+    <div class="tagline">An engaging, child-friendly moral education platform introducing universal values from world religions, with an integrated parent monitoring dashboard.</div>
+    <div class="meta-bar">
+      <div class="meta-item"><strong>Platform:</strong> Dual-Portal Web & Mobile</div>
+      <div class="meta-item"><strong>Audience:</strong> Kids (Ages 5-15) & Parents</div>
+      <div class="meta-item"><strong>Version:</strong> 1.0 (MVP Complete Specification)</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Architecture Flow -->
+  <div class="section">
+    <h2><span class="icon">🔄</span> 1. System Architecture & Flow Diagram</h2>
+    <div class="diagram-container">
+      <svg width="680" height="230" viewBox="0 0 680 230" xmlns="http://www.w3.org/2000/svg">
+        <!-- Root Login -->
+        <rect x="250" y="8" width="180" height="36" rx="8" fill="#312e81"/>
+        <text x="340" y="31" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="700" text-anchor="middle">Role Switcher / Login</text>
+        
+        <!-- Lines from Login to Portals -->
+        <path d="M 290 44 L 290 62 L 150 62 L 150 78" stroke="#6366f1" stroke-width="2" fill="none"/>
+        <path d="M 390 44 L 390 62 L 530 62 L 530 78" stroke="#0ea5e9" stroke-width="2" fill="none"/>
+        
+        <!-- Student Branch -->
+        <rect x="60" y="78" width="180" height="34" rx="6" fill="#4338ca"/>
+        <text x="150" y="100" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">Student Screen 1: All Religions</text>
+        
+        <path d="M 150 112 L 150 134" stroke="#6366f1" stroke-width="2" fill="none"/>
+        
+        <rect x="40" y="134" width="220" height="85" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+        <text x="150" y="152" fill="#5b21b6" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" text-anchor="middle">Screen 2: Learning & Exam Hub</text>
+        <text x="55" y="171" fill="#4c1d95" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5">• 🎬 Video Lectures (Animated)</text>
+        <text x="55" y="185" fill="#4c1d95" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5">• 📚 Moral Storybooks & Audio</text>
+        <text x="55" y="199" fill="#4c1d95" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5">• 💡 Core Teachings & Flipcards</text>
+        <text x="55" y="213" fill="#4c1d95" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5">• 📝 Assessment & Final Exam</text>
+        
+        <!-- Parent Branch -->
+        <rect x="440" y="78" width="180" height="34" rx="6" fill="#0284c7"/>
+        <text x="530" y="100" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11.5" font-weight="700" text-anchor="middle">Parent Screen 1: All Religions</text>
+        
+        <path d="M 530 112 L 530 134" stroke="#0ea5e9" stroke-width="2" fill="none"/>
+        
+        <rect x="420" y="134" width="220" height="85" rx="8" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+        <text x="530" y="152" fill="#0369a1" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="800" text-anchor="middle">Screen 2: Child Progress Dashboard</text>
+        <text x="435" y="171" fill="#0c4a6e" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5">• 🎥 Lecture Attendance & Watch Times</text>
+        <text x="435" y="185" fill="#0c4a6e" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5">• 📊 Weekly Learning Hours & Streaks</text>
+        <text x="435" y="199" fill="#0c4a6e" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5">• 🏆 Exam Scorecard & Certificates</text>
+        <text x="435" y="213" fill="#0c4a6e" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5">• 💬 Family Discussion Prompts</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Section 2: Dual Portals & Religions -->
+  <div class="section">
+    <h2><span class="icon">👥</span> 2. Dual Portal System & Religions Covered</h2>
+    <p>The application features an instant role toggle (<code>Student Mode</code> ↔ <code>Parent Mode</code>) in the top navigation bar. Every religion is presented through universal human ethics (Kindness, Truth, Compassion, Seva):</p>
+    <div class="religions-chips">
+      <div class="chip">🕉️ Hinduism (Sanatana Dharma)</div>
+      <div class="chip">☸️ Buddhism</div>
+      <div class="chip">✝️ Christianity</div>
+      <div class="chip">☪️ Islam</div>
+      <div class="chip">☬ Sikhism</div>
+      <div class="chip">🪷 Jainism</div>
+      <div class="chip">✡️ Judaism</div>
+    </div>
+  </div>
+
+  <!-- Section 3: Student Portal Breakdown -->
+  <div class="section">
+    <h2><span class="icon">🧒</span> 3. Student Portal: Screen-by-Screen Breakdown</h2>
+    <p><strong>Screen 1 (Home Page):</strong> Welcome banner with daily moral quote, interactive world religions grid with sacred symbols & theme colors, child's active study streak (🔥), and total Virtue Stars (⭐).</p>
+    <p><strong>Screen 2 (Dedicated Religion Learning Hub):</strong> Clicking any religion launches 5 interactive education modes:</p>
+    
+    <div class="module-list">
+      <div class="module-item">
+        <strong>1. 🎬 Video Lectures (Animated Explainer Series)</strong>
+        <span>3–5 min character-driven animated lessons covering history, masters, and values. Features play/pause, speed controls, and auto-marks "Completed" upon 90% watch time.</span>
+      </div>
+      <div class="module-item">
+        <strong>2. 📚 Moral Storybooks (Read & Listen)</strong>
+        <span>Illustrated flipbook stories with step-by-step reading and soothing audio narration with peaceful ambient music for bedtime listening, ending with a 1-line moral takeaway.</span>
+      </div>
+      <div class="module-item">
+        <strong>3. 💡 Core Teachings & Interactive Flipcards</strong>
+        <span>Interactive cards displaying principles on the front and relatable real-world kid examples on the back. Includes an interactive Sacred Symbol Explorer.</span>
+      </div>
+      <div class="module-item">
+        <strong>4. 🧘 Mindful Calm & Sound Zone</strong>
+        <span>2-minute guided breathing bubble (inhale/exhale visual guide) paired with authentic calming sounds (Tibetan bowls, flute, harp) for peace and emotional balance.</span>
+      </div>
+      <div class="module-item">
+        <strong>5. 📝 Assessment & Examination Portal</strong>
+        <span>Practice chapter quizzes with confetti celebrations, scenario-based ethical dilemmas ("What would you do?"), and a graded Final Exam with certificate generation.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Parent Portal Breakdown -->
+  <div class="section page-break">
+    <h2><span class="icon">👨‍👩‍👧</span> 4. Parent Portal: Screen-by-Screen Breakdown</h2>
+    <p><strong>Screen 1 (Home Page):</strong> Profile switcher for multiple children, executive summary cards (Total study hours, overall average test score, active courses), and mirror grid of all religions with individual progress bars.</p>
+    <p><strong>Screen 2 (Religion-Specific Progress Dashboard):</strong> Deep analytics per religion:</p>
+    
+    <div class="grid-2">
+      <div class="card card-parent">
+        <div class="card-title">🎥 Lecture Attendance Tracker</div>
+        <p style="font-size: 12px;">Visual completion bar showing completed vs. pending lectures (e.g., 7/10 Completed - 70%) along with timestamps and individual video status.</p>
+      </div>
+      <div class="card card-parent">
+        <div class="card-title">📊 Weekly Learning Hours Graph</div>
+        <p style="font-size: 12px;">7-day bar chart displaying daily study minutes from Monday through Sunday, with a daily streak counter (🔥) to encourage consistency.</p>
+      </div>
+      <div class="card card-parent">
+        <div class="card-title">🏆 Exam Scorecards & Marks</div>
+        <p style="font-size: 12px;">Detailed scores for chapter quizzes and final exams, percentage grades (A+, A, B), identifying strength areas and topics needing further guidance.</p>
+      </div>
+      <div class="card card-parent">
+        <div class="card-title">💬 Family Dinner Prompts</div>
+        <p style="font-size: 12px;">Curated conversation starters for parents to engage with their children at home (e.g., "What did the story of Buddha teach you about showing kindness to animals?").</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Gamification & Business Highlights -->
+  <div class="section">
+    <h2><span class="icon">🎮</span> 5. Gamification & Business Highlights</h2>
+    <ul>
+      <li><strong>Virtue Points & Badges:</strong> Children earn stars and badges for each lecture watched, story read, and quiz completed.</li>
+      <li><strong>Official Certification Engine:</strong> High scores on final exams unlock official, printable certificates of achievement.</li>
+      <li><strong>Freemium Business Model:</strong> Free introductory lesson & 1st moral story for every religion; Premium Family Pass unlocks full courses, audiobooks, certification exams, and detailed parent analytics.</li>
+    </ul>
+  </div>
+
+  <!-- Section 6: Implementation Roadmap -->
+  <div class="section">
+    <h2><span class="icon">🚀</span> 6. Phased Implementation Roadmap</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Milestone</th>
+          <th>Key Deliverables</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Phase 1</strong></td>
+          <td>Portal Shell & Navigation</td>
+          <td>Student & Parent mode switcher, responsive world religions grid, streak & star system.</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 2</strong></td>
+          <td>Student Learning Hub</td>
+          <td>Interactive video player with completion trigger, flipbook story reader with audio, teaching flipcards & calm breathing bubble.</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 3</strong></td>
+          <td>Assessment & Exam Engine</td>
+          <td>Chapter quiz mechanics, scenario-based moral dilemmas, graded final exam, and downloadable certificate.</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 4</strong></td>
+          <td>Parent Analytics Suite</td>
+          <td>Lecture attendance tracker, weekly 7-day study hours chart, exam score history, and dinner prompts.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    Universal Spiritual Academy • Confidential Project Master Plan • Generated for Sharing
+  </div>
+
+</body>
+</html>

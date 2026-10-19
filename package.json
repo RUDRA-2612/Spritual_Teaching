@@ -1,0 +1,16 @@
+{
+  "name": "universal-spiritual-academy",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --host --port 3000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "docx": "^9.12.0"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  }
+}
