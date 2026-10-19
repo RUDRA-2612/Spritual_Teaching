@@ -21,6 +21,7 @@ class AppState {
     this.currentAudio = null;
     this.ambientChantPlaying = false;
     this.currentChantReligionId = null;
+    this.lastNavigationTime = 0;
 
     // Load progress from localStorage (v3 for rich interactive data)
     const savedProgress = localStorage.getItem('unisoul_progress_v3') || localStorage.getItem('omniwisdom_progress_v3');
@@ -76,11 +77,16 @@ class AppState {
   // ==========================================
   setupHistoryListener() {
     window.addEventListener('popstate', (e) => {
+      // If user recently navigated into a realm (< 1200ms ago), ignore phantom popstate!
+      if (this.selectedReligionId !== null && (Date.now() - this.lastNavigationTime < 1200)) {
+        this.pushState(true);
+        return;
+      }
+
       // Only process popstate if there is actual history state from our application
       if (e.state && typeof e.state.isLoggedIn === 'boolean') {
         this.applyStateFromHistory(e.state);
       }
-      // Never auto-back or reset state if e.state is null
     });
 
     // Initial state replace
@@ -121,6 +127,13 @@ class AppState {
 
   applyStateFromHistory(stateObj) {
     if (!stateObj || typeof stateObj.isLoggedIn !== 'boolean') return;
+
+    // Reject premature history bounce to home if navigated recently
+    if (this.selectedReligionId !== null && stateObj.selectedReligionId === null && (Date.now() - this.lastNavigationTime < 1200)) {
+      this.pushState(true);
+      return;
+    }
+
     this.isLoggedIn = stateObj.isLoggedIn;
     this.currentRole = stateObj.currentRole ?? 'student';
 
@@ -170,6 +183,7 @@ class AppState {
   // NAVIGATION ACTIONS
   // ==========================================
   selectReligion(religionId) {
+    this.lastNavigationTime = Date.now();
     this.selectedReligionId = religionId;
     this.activeHubTab = 'lectures';
     const religion = RELIGIONS_DATA.find(r => r.id === religionId);
@@ -189,6 +203,10 @@ class AppState {
   }
 
   clearSelectedReligion() {
+    // If entered religion less than 600ms ago, ignore accidental rapid click bounce
+    if (Date.now() - this.lastNavigationTime < 600) return;
+    this.lastNavigationTime = Date.now();
+
     this.selectedReligionId = null;
     this.activeTeachingModal = null;
     this.navDrawerOpen = false;
